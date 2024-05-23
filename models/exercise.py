@@ -9,6 +9,7 @@ class Exercise(BaseModel, Base):
     """Representation of Exercise """
     __tablename__ = 'exercises'
     description = Column(String(2048), nullable=False)
+    link = Column(String(512), nullable=True)
 
     def __init__(self, *args, **kwargs):
         """initializes Exercise"""

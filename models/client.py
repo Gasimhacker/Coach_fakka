@@ -22,9 +22,8 @@ class Client(BaseModel, Base):
     activity_level = Column(Integer, nullable=False)
     need_supplements = Column(Boolean, nullable=False)
     injury_history = Column(String(1024), nullable=True)
-    workouts = relationship("Workout",
-                         backref="client",
-                         cascade="all, delete, delete-orphan")
+    workouts = relationship("Workout", backref="client",
+                            cascade="all, delete, delete-orphan")
 
     def __init__(self, *args, **kwargs):
         """initializes client"""
