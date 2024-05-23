@@ -7,7 +7,7 @@ import models
 from models.base_model import BaseModel, Base
 from models.coach import Coach
 from models.client import Client
-from models.task import Task
+from models.workout import Workout
 from models.exercise import Exercise
 from os import getenv
 import sqlalchemy
@@ -15,7 +15,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 
 classes = {"Coach": Coach, "Client": Client,
-           "Task": Task, "Exercise": Exercise}
+           "Workout": Workout, "Exercise": Exercise}
 
 
 class DBStorage:
