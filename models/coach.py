@@ -14,7 +14,8 @@ class Coach(BaseModel, Base):
     __tablename__ = 'coaches'
     email = Column(String(128), nullable=False)
     password = Column(String(128), nullable=False)
-    clients = relationship("Client", backref="coach")
+    clients = relationship("Client", backref="coach",
+                           cascade='all, delete, delete-orphan')
 
     def __init__(self, *args, **kwargs):
         """initializes coach"""

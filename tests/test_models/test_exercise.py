@@ -71,7 +71,7 @@ class TestExercise(unittest.TestCase):
         self.assertTrue(hasattr(exercise, "name"))
         self.assertTrue(hasattr(exercise, "description"))
         self.assertTrue(hasattr(exercise, "link"))
-        self.assertEqual(exercise.name, "")
+        self.assertEqual(exercise.name, None)
         self.assertEqual(exercise.description, None)
         self.assertEqual(exercise.link, None)
 
