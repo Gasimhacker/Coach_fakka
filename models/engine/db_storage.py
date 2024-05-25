@@ -29,13 +29,13 @@ class DBStorage:
         MYSQL_PWD = getenv('MYSQL_PWD')
         MYSQL_HOST = getenv('MYSQL_HOST')
         MYSQL_DB = getenv('MYSQL_DB')
-        MYSQL_ENV = getenv('ENV')
+        MYSQL_ENV = getenv('MYSQL_ENV')
         self.__engine = create_engine('mysql+mysqldb://{}:{}@{}/{}'.
                                       format(MYSQL_USER,
                                              MYSQL_PWD,
                                              MYSQL_HOST,
                                              MYSQL_DB))
-        if MYSQL_ENV == "test":
+        if (MYSQL_ENV == 'test'):
             Base.metadata.drop_all(self.__engine)
 
     def all(self, cls=None):

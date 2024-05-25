@@ -73,7 +73,7 @@ class TestCoach(unittest.TestCase):
         self.assertTrue(hasattr(coach, "name"))
         self.assertTrue(hasattr(coach, "email"))
         self.assertTrue(hasattr(coach, "password"))
-        self.assertEqual(coach.name, "")
+        self.assertEqual(coach.name, None)
         self.assertEqual(coach.email, None)
         self.assertEqual(coach.password, None)
 

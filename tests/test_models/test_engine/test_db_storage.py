@@ -20,7 +20,7 @@ from models import storage
 DBStorage = db_storage.DBStorage
 classes = {"Coach": Coach, "Client": Client,
            "Exercise": Exercise, "Workout": Workout}
-members = inspect.getmembers(DBStorage(), inspect.ismethod)
+members = inspect.getmembers(storage, inspect.ismethod)
 
 
 class TestDBStorageDocs(unittest.TestCase):
