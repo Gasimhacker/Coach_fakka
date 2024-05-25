@@ -35,7 +35,7 @@ class DBStorage:
                                              MYSQL_PWD,
                                              MYSQL_HOST,
                                              MYSQL_DB))
-        if MYSQL_ENV == "test":
+        if (MYSQL_ENV == 'test'):
             Base.metadata.drop_all(self.__engine)
 
     def all(self, cls=None):
