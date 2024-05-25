@@ -73,7 +73,7 @@ class TestWorkout(unittest.TestCase):
         self.assertTrue(hasattr(workout, "number_exercises"))
         self.assertTrue(hasattr(workout, "note"))
         self.assertTrue(hasattr(workout, "done"))
-        self.assertEqual(workout.name, "")
+        self.assertEqual(workout.name, None)
         self.assertEqual(workout.client_id, None)
         self.assertEqual(workout.number_exercises, None)
         self.assertEqual(workout.note, None)

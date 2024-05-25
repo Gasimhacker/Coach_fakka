@@ -82,7 +82,7 @@ class TestClient(unittest.TestCase):
         self.assertTrue(hasattr(client, "activity_level"))
         self.assertTrue(hasattr(client, "need_supplements"))
         self.assertTrue(hasattr(client, "injury_history"))
-        self.assertEqual(client.name, "")
+        self.assertEqual(client.name, None)
         self.assertEqual(client.email, None)
         self.assertEqual(client.coach_id, None)
         self.assertEqual(client.email, None)
