@@ -12,7 +12,20 @@
           "package_name": "com.example.coach_fakka_app"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "577108779906-6o17av21iks78q5ajl6h9pabc749ktf6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.coach_fakka_app",
+            "certificate_hash": "0e619a636b090708e0216cdd8b56a2d510d4de2b"
+          }
+        },
+        {
+          "client_id": "577108779906-elso1vjvl2713bvr9rc9951et9tp25gj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyAjqV7YmgQc5sRjFlzBG5CS84R05c4VYCc"
@@ -20,7 +33,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "577108779906-elso1vjvl2713bvr9rc9951et9tp25gj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }
