@@ -16,11 +16,8 @@ class _MainRegisterState extends State<MainRegister> {
           children: <Widget>[
             CircleAvatar(
               radius: 50,
-              child: Image(
-                image: AssetImage(
-                  'assets/images/moe_salah.jpg',
-                ),
-                fit: BoxFit.fill,
+              backgroundImage: AssetImage(
+                'assets/images/moe_salah.jpg',
               ),
             ),
             Text('Coach Fakka '),
