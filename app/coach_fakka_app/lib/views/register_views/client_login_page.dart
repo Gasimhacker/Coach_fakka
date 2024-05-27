@@ -1,14 +1,14 @@
 import 'package:coach_fakka_app/utils/colors.dart';
 import 'package:flutter/material.dart';
 
-class CoachLogin extends StatefulWidget {
-  const CoachLogin({super.key});
+class ClientLogin extends StatefulWidget {
+  const ClientLogin({super.key});
 
   @override
-  State<CoachLogin> createState() => _CoachLoginState();
+  State<ClientLogin> createState() => _ClientLoginState();
 }
 
-class _CoachLoginState extends State<CoachLogin> {
+class _ClientLoginState extends State<ClientLogin> {
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -16,20 +16,20 @@ class _CoachLoginState extends State<CoachLogin> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            CoachLoginText(),
+            TraineeLoginText(),
             SizedBox(
               height: 30.0,
             ),
-            CoachEmailField(),
+            TraineeEmailField(),
             SizedBox(
               height: 30.0,
             ),
-            CoachPasswordField(),
+            TraineePasswordField(),
             SizedBox(
               height: 30.0,
             ),
-            CoachLoginButton(),
-            CoachToSignupButton(),
+            TraineeLoginButton(),
+            TraineeToSignupButton(),
           ],
         ),
       ),
@@ -37,7 +37,11 @@ class _CoachLoginState extends State<CoachLogin> {
   }
 }
 
-class CoachToSignupButton extends StatelessWidget {
+class TraineeToSignupButton extends StatelessWidget {
+  const TraineeToSignupButton({
+    super.key,
+  });
+
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -54,7 +58,7 @@ class CoachToSignupButton extends StatelessWidget {
           child: Text(
             'Sign Up',
             style: TextStyle(
-                color: mainColor,
+                color: secondaryColor,
                 fontWeight: FontWeight.bold,
                 fontFamily: 'Coiny'),
           ),
@@ -64,14 +68,14 @@ class CoachToSignupButton extends StatelessWidget {
   }
 }
 
-class CoachLoginButton extends StatelessWidget {
+class TraineeLoginButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
       width: MediaQuery.of(context).size.width - 80.0,
       height: 50.0,
       decoration: BoxDecoration(
-        color: mainColor,
+        color: secondaryColor,
         borderRadius: BorderRadius.circular(10.0),
       ),
       child: TextButton(
@@ -87,7 +91,7 @@ class CoachLoginButton extends StatelessWidget {
   }
 }
 
-class CoachPasswordField extends StatelessWidget {
+class TraineePasswordField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -101,7 +105,7 @@ class CoachPasswordField extends StatelessWidget {
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10.0),
             borderSide: BorderSide(
-              color: mainColor,
+              color: secondaryColor,
             ), // Customize focused border color
           ),
           hintText: 'Enter Password', // Placeholder text
@@ -114,7 +118,7 @@ class CoachPasswordField extends StatelessWidget {
   }
 }
 
-class CoachEmailField extends StatelessWidget {
+class TraineeEmailField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -127,7 +131,7 @@ class CoachEmailField extends StatelessWidget {
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10.0),
             borderSide: BorderSide(
-              color: mainColor,
+              color: secondaryColor,
             ),
           ),
           hintText: 'Enter your email or username',
@@ -138,11 +142,11 @@ class CoachEmailField extends StatelessWidget {
   }
 }
 
-class CoachLoginText extends StatelessWidget {
+class TraineeLoginText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text(
-      'Coachs Login',
+      'Trainee Login',
       style: TextStyle(
         fontSize: 30,
         fontWeight: FontWeight.bold,
