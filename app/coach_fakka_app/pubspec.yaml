@@ -80,26 +80,26 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
-  #   - family: BungeeSpice
-  #     fonts:
-  #       - asset: aseets/fonts/BungeeSpice.ttf
+  fonts:
+    - family: BungeeSpice
+      fonts:
+        - asset: assets/fonts/BungeeSpice.ttf
     
-  #   - family: Coiny
-  #     fonts:
-  #       - asset: aseets/fonts/Coiny.ttf
+    - family: Coiny
+      fonts:
+        - asset: assets/fonts/Coiny.ttf
 
-  #   - family: Jaro
-  #     fonts:
-  #       - asset: aseets/fonts/Jaro.ttf
+    - family: Jaro
+      fonts:
+        - asset: assets/fonts/Jaro.ttf
 
-  #   - family: Jersey25Charted
-  #     fonts:
-  #       - asset: aseets/fonts/Jersey25Charted.ttf
+    - family: Jersey25Charted
+      fonts:
+        - asset: assets/fonts/Jersey25Charted.ttf
 
-  #   - family: Teko
-  #     fonts:
-  #       - asset: aseets/fonts/Teko.ttf
+    - family: Teko
+      fonts:
+        - asset: assets/fonts/Teko.ttf
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

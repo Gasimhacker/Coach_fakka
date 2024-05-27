@@ -1,4 +1,5 @@
-import 'package:coach_fakka_app/views/register_views/main_register_screen.dart';
+import 'package:coach_fakka_app/views/main_screen.dart';
+import 'package:coach_fakka_app/views/register_views/coach_login_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
@@ -29,7 +30,9 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: MainRegister(),
+      home: Scaffold(
+        body: CoachLogin(),
+      ),
     );
   }
 }
