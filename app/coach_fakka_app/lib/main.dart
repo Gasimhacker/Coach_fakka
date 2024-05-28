@@ -1,5 +1,4 @@
 import 'package:coach_fakka_app/views/coach_views/individual_client_screen.dart';
-import 'package:coach_fakka_app/views/coach_views/main_coach_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

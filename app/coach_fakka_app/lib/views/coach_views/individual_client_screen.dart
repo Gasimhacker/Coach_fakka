@@ -68,7 +68,7 @@ class ClientCoachDrawer extends StatelessWidget {
                   imagePath: dummyImagePath,
                 ),
                 UserNameWidget(
-                  userName: 'Coach Fakka',
+                  userName: 'Client Name',
                 ),
               ],
             ),
@@ -78,16 +78,7 @@ class ClientCoachDrawer extends StatelessWidget {
           ),
           ListTile(
             title: Text(
-              'Add Trainee',
-              style: TextStyle(color: mainColor, fontFamily: 'Coiny'),
-            ),
-            onTap: () {
-              // Implement settings functionality
-            },
-          ),
-          ListTile(
-            title: Text(
-              'Add Exercise',
+              'Add Workout',
               style: TextStyle(color: mainColor, fontFamily: 'Coiny'),
             ),
             onTap: () {
@@ -101,15 +92,6 @@ class ClientCoachDrawer extends StatelessWidget {
             ),
             onTap: () {
               // Implement profile functionality
-            },
-          ),
-          ListTile(
-            title: Text(
-              'Logout',
-              style: TextStyle(color: mainColor, fontFamily: 'Coiny'),
-            ),
-            onTap: () {
-              // Implement logout functionality
             },
           ),
         ],

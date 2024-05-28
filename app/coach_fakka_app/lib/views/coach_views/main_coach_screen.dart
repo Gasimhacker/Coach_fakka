@@ -171,7 +171,7 @@ class SearchBarWidget extends StatelessWidget {
       child: Container(
         margin: EdgeInsets.symmetric(horizontal: 60),
         decoration: BoxDecoration(
-          color: Colors.grey[200],
+          color: thirdColor,
           borderRadius: BorderRadius.circular(30),
         ),
         child: TextField(
