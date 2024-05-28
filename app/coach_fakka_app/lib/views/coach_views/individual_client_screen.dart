@@ -103,14 +103,15 @@ class ClientCoachDrawer extends StatelessWidget {
 class Task {
   final String name;
   final String imagePath;
+  final String createdAt;
 
-  Task({required this.name, required this.imagePath});
+  Task({required this.name, required this.imagePath, required this.createdAt});
 }
 
 // Example data (replace with your actual data)
 final List<Task> taskList = [
-  Task(name: 'Task 1', imagePath: dummyImagePath),
-  Task(name: 'Task 2', imagePath: dummyImagePath),
+  Task(name: 'Upper 1', imagePath: dummyImagePath, createdAt: '2024-05-29'),
+  Task(name: 'Lower 1', imagePath: dummyImagePath, createdAt: '2024-05-29'),
   // Add more trainees here
 ];
 
@@ -128,27 +129,18 @@ class TaskListTile extends StatelessWidget {
         color: mainColor,
       ),
       child: ListTile(
-        contentPadding: EdgeInsets.all(10),
-        leading: CircleAvatar(
-          backgroundImage: AssetImage(
-            taskList[index].imagePath,
-          ), // Replace with trainee images
-        ),
-        title: Text(
-          taskList[index].name,
-          style: TextStyle(
-            fontSize: 16,
-            color: Colors.white,
-            fontFamily: 'Coiny',
-          ),
+        contentPadding: EdgeInsets.fromLTRB(30, 0, 10, 0),
+
+        leading: Text(taskList[index].name, style: mainTextStyle),
+        title: Center(
+          child:
+              Text('Date: ${taskList[index].createdAt}', style: mainTextStyle),
         ), // Replace with trainee names
         trailing: TextButton(
           onPressed: () {
             // Implement edit functionality
           },
-          child: Text('Train',
-              style: TextStyle(
-                  color: Colors.white, fontSize: 16, fontFamily: 'Coiny')),
+          child: Text('Edit', style: mainTextStyle),
         ),
       ),
     );

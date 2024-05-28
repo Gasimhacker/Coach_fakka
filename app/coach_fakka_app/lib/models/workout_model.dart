@@ -4,26 +4,26 @@ import 'package:http/http.dart' as http;
 class WorkoutModel {
   final String? id;
   final String? name;
-  final String? description;
-  final String? duration;
-  final String? calories;
+  final String? note;
+  final DateTime? creatdAt;
   final String? coachId;
+  final String? clientId;
 
   WorkoutModel(
       {this.id,
       this.name,
-      this.description,
-      this.duration,
-      this.calories,
-      this.coachId});
+      this.note,
+      this.creatdAt,
+      this.coachId,
+      this.clientId});
 
   factory WorkoutModel.fromJson(Map<String, dynamic> json) {
     return WorkoutModel(
       id: json['id'],
       name: json['name'],
-      description: json['description'],
-      duration: json['duration'],
-      calories: json['calories'],
+      note: json['note'],
+      creatdAt: json['creatdAt'],
+      clientId: json['clientId'],
       coachId: json['coachId'],
     );
   }
@@ -31,10 +31,10 @@ class WorkoutModel {
   Map<String, dynamic> toJson() => {
         'id': id,
         'name': name,
-        'description': description,
-        'duration': duration,
-        'calories': calories,
         'coachId': coachId,
+        'clientId': clientId,
+        'note': note,
+        'creatdAt': creatdAt,
       };
 
   static Future<List<WorkoutModel>> fetchAll() async {
