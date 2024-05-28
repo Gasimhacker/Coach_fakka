@@ -1,4 +1,4 @@
-import 'package:coach_fakka_app/views/register_views/client_login_page.dart';
+import 'package:coach_fakka_app/views/main_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       home: Scaffold(
-        body: ClientLogin(),
+        body: MainRegister(),
       ),
     );
   }
