@@ -1,6 +1,7 @@
-import 'package:coach_fakka_app/views/main_screen.dart';
+import 'package:coach_fakka_app/views/coach_views/main_coach_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -23,15 +24,17 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+    ));
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Coach Fakka App',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: Scaffold(
-        body: MainRegister(),
-      ),
+      home: CoachMainScreen(),
     );
   }
 }
