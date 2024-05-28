@@ -1,17 +1,21 @@
-import 'package:coach_fakka_app/utils/utils.dart';
 import 'package:coach_fakka_app/views/coach_views/widgets.dart';
 import 'package:flutter/material.dart';
 
-class CoachMainScreen extends StatelessWidget {
+import '../../utils/utils.dart';
+
+class IndividualClientView extends StatelessWidget {
+  const IndividualClientView({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: UserMainAppBar(),
       backgroundColor: thirdColor,
+      appBar: UserMainAppBar(),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           Container(
+            width: double.infinity,
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.only(
@@ -27,18 +31,17 @@ class CoachMainScreen extends StatelessWidget {
                 ),
                 SizedBox(height: 10),
                 UserNameWidget(
-                  userName: 'Coach Fakka',
+                  userName: 'Client Name',
                 ),
-                SizedBox(height: 20),
-                SearchBarWidget(),
+                SizedBox(height: 10),
               ],
             ),
           ),
           Expanded(
             child: ListView.builder(
-              itemCount: traineeList.length, // Replace with your data
+              itemCount: taskList.length, // Replace with your data
               itemBuilder: (context, index) {
-                return ClientListTile(
+                return TaskListTile(
                   index: index,
                 );
               },
@@ -46,19 +49,12 @@ class CoachMainScreen extends StatelessWidget {
           ),
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          // Implement add functionality
-        },
-        child: Icon(Icons.add),
-        backgroundColor: mainColor,
-      ),
-      drawer: CoachDrawer(),
+      drawer: ClientCoachDrawer(),
     );
   }
 }
 
-class CoachDrawer extends StatelessWidget {
+class ClientCoachDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -122,10 +118,24 @@ class CoachDrawer extends StatelessWidget {
   }
 }
 
+class Task {
+  final String name;
+  final String imagePath;
+
+  Task({required this.name, required this.imagePath});
+}
+
+// Example data (replace with your actual data)
+final List<Task> taskList = [
+  Task(name: 'Task 1', imagePath: dummyImagePath),
+  Task(name: 'Task 2', imagePath: dummyImagePath),
+  // Add more trainees here
+];
+
 // ignore: must_be_immutable
-class ClientListTile extends StatelessWidget {
+class TaskListTile extends StatelessWidget {
   int index;
-  ClientListTile({required this.index});
+  TaskListTile({required this.index});
 
   @override
   Widget build(BuildContext context) {
@@ -139,11 +149,11 @@ class ClientListTile extends StatelessWidget {
         contentPadding: EdgeInsets.all(10),
         leading: CircleAvatar(
           backgroundImage: AssetImage(
-            traineeList[index].imagePath,
+            taskList[index].imagePath,
           ), // Replace with trainee images
         ),
         title: Text(
-          traineeList[index].name,
+          taskList[index].name,
           style: TextStyle(
             fontSize: 16,
             color: Colors.white,
@@ -162,40 +172,3 @@ class ClientListTile extends StatelessWidget {
     );
   }
 }
-
-class SearchBarWidget extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 10.0),
-      child: Container(
-        margin: EdgeInsets.symmetric(horizontal: 60),
-        decoration: BoxDecoration(
-          color: Colors.grey[200],
-          borderRadius: BorderRadius.circular(30),
-        ),
-        child: TextField(
-          decoration: InputDecoration(
-            hintText: 'Search',
-            border: InputBorder.none,
-            prefixIcon: Icon(Icons.search),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class Trainee {
-  final String name;
-  final String imagePath;
-
-  Trainee({required this.name, required this.imagePath});
-}
-
-// Example data (replace with your actual data)
-final List<Trainee> traineeList = [
-  Trainee(name: 'Trainee 1', imagePath: dummyImagePath),
-  Trainee(name: 'Trainee 2', imagePath: dummyImagePath),
-  // Add more trainees here
-];
