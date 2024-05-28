@@ -62,58 +62,66 @@ class CoachMainScreen extends StatelessWidget {
         child: Icon(Icons.add),
         backgroundColor: mainColor,
       ),
-      drawer: Drawer(
-        child: ListView(
-          children: [
-            DrawerHeader(
-              child: Column(
-                children: [
-                  CoachProfilePic(),
-                  CoachNameWidget(),
-                ],
-              ),
-              decoration: BoxDecoration(
-                color: mainColor,
-              ),
+      drawer: CoachDrawer(),
+    );
+  }
+}
+
+class CoachDrawer extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Drawer(
+      backgroundColor: thirdColor,
+      child: ListView(
+        children: [
+          DrawerHeader(
+            child: Column(
+              children: [
+                CoachProfilePic(),
+                CoachNameWidget(),
+              ],
             ),
-            ListTile(
-              title: Text(
-                'Add Trainee',
-                style: TextStyle(color: mainColor, fontFamily: 'Coiny'),
-              ),
-              onTap: () {
-                // Implement settings functionality
-              },
+            decoration: BoxDecoration(
+              color: mainColor,
             ),
-            ListTile(
-              title: Text(
-                'Add Exercise',
-                style: TextStyle(color: mainColor, fontFamily: 'Coiny'),
-              ),
-              onTap: () {
-                // Implement settings functionality
-              },
+          ),
+          ListTile(
+            title: Text(
+              'Add Trainee',
+              style: TextStyle(color: mainColor, fontFamily: 'Coiny'),
             ),
-            ListTile(
-              title: Text(
-                'Profile',
-                style: TextStyle(color: mainColor, fontFamily: 'Coiny'),
-              ),
-              onTap: () {
-                // Implement profile functionality
-              },
+            onTap: () {
+              // Implement settings functionality
+            },
+          ),
+          ListTile(
+            title: Text(
+              'Add Exercise',
+              style: TextStyle(color: mainColor, fontFamily: 'Coiny'),
             ),
-            ListTile(
-              title: Text(
-                'Logout',
-                style: TextStyle(color: mainColor, fontFamily: 'Coiny'),
-              ),
-              onTap: () {
-                // Implement logout functionality
-              },
+            onTap: () {
+              // Implement settings functionality
+            },
+          ),
+          ListTile(
+            title: Text(
+              'Profile',
+              style: TextStyle(color: mainColor, fontFamily: 'Coiny'),
             ),
-          ],
-        ),
+            onTap: () {
+              // Implement profile functionality
+            },
+          ),
+          ListTile(
+            title: Text(
+              'Logout',
+              style: TextStyle(color: mainColor, fontFamily: 'Coiny'),
+            ),
+            onTap: () {
+              // Implement logout functionality
+            },
+          ),
+        ],
       ),
     );
   }
@@ -151,7 +159,7 @@ class ClientListTile extends StatelessWidget {
           onPressed: () {
             // Implement edit functionality
           },
-          child: Text('Edit',
+          child: Text('Train',
               style: TextStyle(
                   color: Colors.white, fontSize: 16, fontFamily: 'Coiny')),
         ),
