@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 """workout view"""
 from flask import Flask, jsonify, abort, request
 from api.v1.views import app_views
@@ -5,15 +6,17 @@ from models import storage
 from models.client import Client
 from models.workout import Workout
 
-
-@app_viwes.route('/<client_id>/workouts', methods=['GET', 'POST'], strict_slashes=False)
+storage.reload()
+Workout_attr = ['name', 'description', 'done']
+@app_views.route('/<client_id>/workouts', methods=['GET', 'POST'], strict_slashes=False)
 def add_workout(client_id):
     """add a workout to a client and get all worout for the client"""
     if request.method == 'GET':
         client = storage.get(Client, client_id)
         if client is None:
             abort(404)
-        return jsonify([workout.to_dict() for workout in client.workout])
+        return jsonify([workout.to_dict() for workout in client.workouts])
+    
     if request.method == 'POST':
         if not request.json:
             abort(400, 'Not a JSON')
@@ -27,12 +30,12 @@ def add_workout(client_id):
 @app_views.route('/<client_id>/workouts/done', methods=['GET'], strict_slashes=False)
 def done_workout(client_id):
     """get all done workouts"""
-    client = storage.get(client, client_id)
+    client = storage.get(Client, client_id)
     if client is None:
         abort(404)
-    return jsonify([workout.to_dict() for workout in client.workout if workout.done])
+    return jsonify([workout.to_dict() for workout in client.workouts if workout.done])
 
-@app_views.route('/<client_id>/workouts/todo', method=['GET'], strict_slashes=False)
+@app_views.route('/<client_id>/workouts/todo', methods=['GET'], strict_slashes=False)
 def todo_workout(client_id):
     """get all todo workouts"""
     client = storage.get(Client, client_id)
@@ -63,8 +66,8 @@ def workout_ctrl(client_id, workout_id):
         workout_list = client.workout
         for work in workout_list:
             if work.id == workout_id:
-                workout = work
-                workout(**request.json).save()
+                for k, v in request.json.items():
+                    setattr(work, k, v)
                 return jsonify(workout.to_dict()), 201
         abort(404)
     
