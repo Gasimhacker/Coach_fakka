@@ -2,8 +2,6 @@ import 'package:coach_fakka_app/utils/colors.dart';
 import 'package:flutter/material.dart';
 
 class CoachLogin extends StatefulWidget {
-  const CoachLogin({super.key});
-
   @override
   State<CoachLogin> createState() => _CoachLoginState();
 }
@@ -11,26 +9,28 @@ class CoachLogin extends StatefulWidget {
 class _CoachLoginState extends State<CoachLogin> {
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            CoachLoginText(),
-            SizedBox(
-              height: 30.0,
-            ),
-            CoachEmailField(),
-            SizedBox(
-              height: 30.0,
-            ),
-            CoachPasswordField(),
-            SizedBox(
-              height: 30.0,
-            ),
-            CoachLoginButton(),
-            CoachToSignupButton(),
-          ],
+    return Scaffold(
+      body: Center(
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              CoachLoginText(),
+              SizedBox(
+                height: 30.0,
+              ),
+              CoachEmailField(),
+              SizedBox(
+                height: 30.0,
+              ),
+              CoachPasswordField(),
+              SizedBox(
+                height: 30.0,
+              ),
+              CoachLoginButton(),
+              CoachToSignupButton(),
+            ],
+          ),
         ),
       ),
     );

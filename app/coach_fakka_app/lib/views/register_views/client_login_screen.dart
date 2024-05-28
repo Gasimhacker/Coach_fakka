@@ -11,26 +11,28 @@ class ClientLogin extends StatefulWidget {
 class _ClientLoginState extends State<ClientLogin> {
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            TraineeLoginText(),
-            SizedBox(
-              height: 30.0,
-            ),
-            TraineeEmailField(),
-            SizedBox(
-              height: 30.0,
-            ),
-            TraineePasswordField(),
-            SizedBox(
-              height: 30.0,
-            ),
-            TraineeLoginButton(),
-            TraineeToSignupButton(),
-          ],
+    return Scaffold(
+      body: Center(
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              TraineeLoginText(),
+              SizedBox(
+                height: 30.0,
+              ),
+              TraineeEmailField(),
+              SizedBox(
+                height: 30.0,
+              ),
+              TraineePasswordField(),
+              SizedBox(
+                height: 30.0,
+              ),
+              TraineeLoginButton(),
+              TraineeToSignupButton(),
+            ],
+          ),
         ),
       ),
     );
