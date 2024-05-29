@@ -108,11 +108,13 @@ class AppTitleWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(20.0),
-      child: Text('Coach Fakka ',
-          style: TextStyle(
-              fontSize: 30,
-              fontWeight: FontWeight.bold,
-              fontFamily: 'BungeeSpice')),
+      child: Text(
+        'Coach Fakka ',
+        style: TextStyle(
+            fontSize: 30,
+            fontWeight: FontWeight.bold,
+            fontFamily: 'BungeeSpice'),
+      ),
     );
   }
 }
