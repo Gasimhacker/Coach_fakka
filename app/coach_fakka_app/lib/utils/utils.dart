@@ -10,3 +10,9 @@ const TextStyle mainTextStyle = TextStyle(
   fontFamily: 'Coiny',
   fontSize: 16,
 );
+
+const TextStyle secondryTextStyle = TextStyle(
+  color: Colors.black,
+  fontFamily: 'Coiny',
+  fontSize: 16,
+);
