@@ -82,7 +82,7 @@ class ClientCoachDrawer extends StatelessWidget {
               style: TextStyle(color: mainColor, fontFamily: 'Coiny'),
             ),
             onTap: () {
-              // Implement settings functionality
+              Null;
             },
           ),
           ListTile(
