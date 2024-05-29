@@ -1,3 +1,4 @@
+import 'package:coach_fakka_app/views/workout_view/add_exercise.dart';
 import 'package:coach_fakka_app/views/workout_view/add_workout_exercise.dart';
 
 import 'package:firebase_core/firebase_core.dart';
@@ -35,7 +36,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: AddWourkoutExercise(),
+      home: AddExercies(),
     );
   }
 }

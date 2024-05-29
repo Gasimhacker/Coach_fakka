@@ -52,7 +52,7 @@ class _AddWourkoutExerciseState extends State<AddWourkoutExercise> {
                 ExerciseFormField('Warm up'),
               ],
             ),
-            CoachLoginButton(),
+            SubmitExerciseButton(),
           ],
         ),
       ),
@@ -60,7 +60,7 @@ class _AddWourkoutExerciseState extends State<AddWourkoutExercise> {
   }
 }
 
-class CoachLoginButton extends StatelessWidget {
+class SubmitExerciseButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
