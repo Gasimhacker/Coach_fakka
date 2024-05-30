@@ -29,7 +29,9 @@ class ClinetNetworkHandler {
 
     if (response.statusCode == 200) {
       var jsonResponse = json.decode(response.body);
-      return jsonResponse;
+      return jsonResponse
+          .map((client) => ClientModel.fromJson(client))
+          .toList();
     } else {
       throw Exception('Failed to load workouts');
     }

@@ -64,11 +64,8 @@ class _IndividualClientViewState extends State<IndividualClientView> {
       drawer: ClientCoachDrawer(),
     );
   }
-}
 
-class ClientCoachDrawer extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
+  ClientCoachDrawer() {
     return Drawer(
       backgroundColor: thirdColor,
       child: ListView(
@@ -112,30 +109,9 @@ class ClientCoachDrawer extends StatelessWidget {
       ),
     );
   }
-}
 
-class Task {
-  final String name;
-  final String imagePath;
-  final String createdAt;
-
-  Task({required this.name, required this.imagePath, required this.createdAt});
-}
-
-// Example data (replace with your actual data)
-final List<Task> taskList = [
-  Task(name: 'Upper 1', imagePath: dummyImagePath, createdAt: '2024-05-29'),
-  Task(name: 'Lower 1', imagePath: dummyImagePath, createdAt: '2024-05-29'),
-  // Add more trainees here
-];
-
-// ignore: must_be_immutable
-class TaskListTile extends StatelessWidget {
-  int index;
-  TaskListTile({required this.index});
-
-  @override
-  Widget build(BuildContext context) {
+  TaskListTile({required int index}) {
+    int index = 0;
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       decoration: BoxDecoration(
@@ -154,9 +130,29 @@ class TaskListTile extends StatelessWidget {
           onPressed: () {
             // Implement edit functionality
           },
-          child: Text('Edit', style: mainTextStyle),
+          child: taskList[index].isCompleted
+              ? Text('Completed', style: mainTextStyle)
+              : Text('Not Completed', style: mainTextStyle),
         ),
       ),
     );
   }
 }
+
+class Task {
+  final String name;
+  final String createdAt;
+  final bool isCompleted;
+
+  Task({required this.name, required this.createdAt, this.isCompleted = false});
+}
+
+// Example data (replace with your actual data)
+final List<Task> taskList = [
+  Task(name: 'Upper 1', createdAt: '2024-05-29', isCompleted: true),
+  Task(name: 'Lower 1', createdAt: '2024-05-29', isCompleted: false),
+  // Add more trainees here
+];
+
+// ignore: must_be_immutable
+

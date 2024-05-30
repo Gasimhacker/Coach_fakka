@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:coach_fakka_app/models/client_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-class AuthHandler {
+class ClientAuthHandler {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 

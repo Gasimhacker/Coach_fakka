@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 class ClientModel {
   String? name;
   String? id;

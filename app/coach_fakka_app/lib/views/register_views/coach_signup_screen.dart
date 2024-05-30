@@ -55,11 +55,8 @@ class _CoachSignupState extends State<CoachSignup> {
       )),
     );
   }
-}
 
-class CoachNameField extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
+  CoachNameField() {
     return Container(
       width: MediaQuery.of(context).size.width - 80.0,
       height: 50.0,
@@ -79,11 +76,8 @@ class CoachNameField extends StatelessWidget {
       ),
     );
   }
-}
 
-class CoachEmailField extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
+  CoachEmailField() {
     return Container(
       width: MediaQuery.of(context).size.width - 80.0,
       height: 50.0,
@@ -103,11 +97,8 @@ class CoachEmailField extends StatelessWidget {
       ),
     );
   }
-}
 
-class CoachPasswordField extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
+  CoachPasswordField() {
     return Container(
       width: MediaQuery.of(context).size.width - 80.0,
       height: 50.0,
@@ -128,11 +119,8 @@ class CoachPasswordField extends StatelessWidget {
       ),
     );
   }
-}
 
-class CoachPhoneField extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
+  CoachPhoneField() {
     return Container(
       width: MediaQuery.of(context).size.width - 80.0,
       height: 50.0,
@@ -153,11 +141,8 @@ class CoachPhoneField extends StatelessWidget {
       ),
     );
   }
-}
 
-class CoachAddressField extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
+  CoachAddressField() {
     return Container(
       width: MediaQuery.of(context).size.width - 80.0,
       height: 50.0,
@@ -177,11 +162,8 @@ class CoachAddressField extends StatelessWidget {
       ),
     );
   }
-}
 
-class CoachSignupText extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
+  CoachSignupText() {
     return Text(
       'Sign Up',
       style: TextStyle(
@@ -191,14 +173,8 @@ class CoachSignupText extends StatelessWidget {
       ),
     );
   }
-}
 
-class FormTextTitle extends StatelessWidget {
-  final String title;
-  FormTextTitle(this.title);
-
-  @override
-  Widget build(BuildContext context) {
+  FormTextTitle(String title) {
     return Container(
       child: Text(
         title,
@@ -214,11 +190,8 @@ class FormTextTitle extends StatelessWidget {
       ),
     );
   }
-}
 
-class ClientSignupText extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
+  Widget ClientSignupText() {
     return Text(
       'Sign Up',
       style: TextStyle(

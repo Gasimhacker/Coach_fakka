@@ -1,4 +1,4 @@
-import 'package:coach_fakka_app/controllers/auth_handler.dart';
+import 'package:coach_fakka_app/controllers/auth_contollers/client_auth_handler.dart';
 import 'package:coach_fakka_app/models/client_model.dart';
 import 'package:coach_fakka_app/utils/show_snackBar.dart';
 import 'package:coach_fakka_app/utils/utils.dart';
@@ -11,7 +11,7 @@ class ClientSignup extends StatefulWidget {
 }
 
 class _ClientSignupState extends State<ClientSignup> {
-  final AuthHandler _authHandler = AuthHandler();
+  final ClientAuthHandler _authHandler = ClientAuthHandler();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   late ClientModel newClient = ClientModel();
@@ -60,6 +60,11 @@ class _ClientSignupState extends State<ClientSignup> {
               ),
               FormTextTitle('PASSWORD'),
               ClientPasswordField(),
+              SizedBox(
+                height: 10.0,
+              ),
+              FormTextTitle('COACH ID'),
+              ClientCoachIdField(),
               SizedBox(
                 height: 10.0,
               ),
@@ -582,6 +587,31 @@ class _ClientSignupState extends State<ClientSignup> {
             ),
           ),
           hintText: 'Do you have any injury history?',
+          hintStyle: TextStyle(color: Colors.grey),
+        ),
+      ),
+    );
+  }
+
+  Widget ClientCoachIdField() {
+    return Container(
+      margin: EdgeInsets.symmetric(horizontal: 40.0),
+      width: MediaQuery.of(context).size.width - 80.0,
+      height: 70.0,
+      child: TextFormField(
+        onSaved: (value) {
+          newClient.injuryHistory = value;
+        },
+        decoration: InputDecoration(
+          labelStyle: TextStyle(color: Colors.grey),
+          border: OutlineInputBorder(),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10.0),
+            borderSide: BorderSide(
+              color: secondaryColor,
+            ),
+          ),
+          hintText: 'Enter your coach ID',
           hintStyle: TextStyle(color: Colors.grey),
         ),
       ),
