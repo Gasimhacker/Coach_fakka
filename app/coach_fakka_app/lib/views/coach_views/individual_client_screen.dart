@@ -1,10 +1,22 @@
 import 'package:coach_fakka_app/views/coach_views/widgets.dart';
+import 'package:coach_fakka_app/views/workout_view/add_workout_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../../utils/utils.dart';
 
-class IndividualClientView extends StatelessWidget {
+class IndividualClientView extends StatefulWidget {
   const IndividualClientView({super.key});
+
+  @override
+  State<IndividualClientView> createState() => _IndividualClientViewState();
+}
+
+class _IndividualClientViewState extends State<IndividualClientView> {
+  @override
+  void initState() {
+    // TODO: GET REQUEST FROM API TO GET CLIENT DATA /api/v1/<client_id>/workouts/
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -82,7 +94,9 @@ class ClientCoachDrawer extends StatelessWidget {
               style: TextStyle(color: mainColor, fontFamily: 'Coiny'),
             ),
             onTap: () {
-              // Implement settings functionality
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                return AddWorkout();
+              }));
             },
           ),
           ListTile(
