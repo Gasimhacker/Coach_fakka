@@ -1,8 +1,21 @@
 import 'package:coach_fakka_app/utils/utils.dart';
 import 'package:coach_fakka_app/views/coach_views/widgets.dart';
+import 'package:coach_fakka_app/views/workout_view/add_exercise.dart';
 import 'package:flutter/material.dart';
 
-class CoachMainScreen extends StatelessWidget {
+class CoachMainScreen extends StatefulWidget {
+  @override
+  State<CoachMainScreen> createState() => _CoachMainScreenState();
+}
+
+class _CoachMainScreenState extends State<CoachMainScreen> {
+  @override
+  void initState() {
+    // TODO: GET REQUEST FROM API TO GET COACH DATA /api/v1/coaches/<coach_id>
+    // TODO: GET REQUEST FROM API TO GET COACH TRAINEES /api/v1/<coach_id>/clients >> lIST
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -95,7 +108,9 @@ class CoachDrawer extends StatelessWidget {
               style: TextStyle(color: mainColor, fontFamily: 'Coiny'),
             ),
             onTap: () {
-              // Implement settings functionality
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                return AddExercies();
+              }));
             },
           ),
           ListTile(
@@ -153,6 +168,8 @@ class ClientListTile extends StatelessWidget {
         trailing: TextButton(
           onPressed: () {
             // Implement edit functionality
+            // GET TRAINEE ID : traineeList[index].id
+            // GOTO : individual trainee screen
           },
           child: Text('Train',
               style: TextStyle(

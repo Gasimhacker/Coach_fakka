@@ -1,1 +1,0 @@
-//Get Cureent user Id and type

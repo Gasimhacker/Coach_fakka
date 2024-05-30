@@ -12,27 +12,26 @@ class _AddExerciesState extends State<AddExercies> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(height: MediaQuery.of(context).size.height * 0.05),
-            FormTextTitle('Exercise Name'),
-            SizedBox(height: 10),
-            CustomFormFiled('Enter Exercise Name'),
-            SizedBox(height: 10),
-            FormTextTitle('Exercise Description'),
-            SizedBox(height: 10),
-            CustomFormFiled('Enter Exercise Description'),
-            SizedBox(height: 10),
-            FormTextTitle('Exercise Link (optional)'),
-            SizedBox(height: 10),
-            CustomFormFiled('Enter Exercise Link'),
-            SizedBox(height: 10),
-            SubmitExerciseButton(),
-          ],
-        ),
+      body: Column(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(height: MediaQuery.of(context).size.height * 0.05),
+          FormTextTitle('Exercise Name'),
+          SizedBox(height: 10),
+          CustomFormFiled('Enter Exercise Name'),
+          SizedBox(height: 10),
+          FormTextTitle('Exercise Description'),
+          SizedBox(height: 10),
+          CustomFormFiled('Enter Exercise Description'),
+          SizedBox(height: 10),
+          FormTextTitle('Exercise Link (optional)'),
+          SizedBox(height: 10),
+          CustomFormFiled('Enter Exercise Link'),
+          SizedBox(height: 10),
+          SubmitExerciseButton(),
+        ],
       ),
     );
   }
@@ -96,7 +95,7 @@ class SubmitExerciseButton extends StatelessWidget {
       ),
       child: TextButton(
         onPressed: () {
-          Null;
+          // POST EXERCISE API /api/v1/<coach_id>/exercises WITH body {name, description, link}
         },
         child: Text(
           'Submit',

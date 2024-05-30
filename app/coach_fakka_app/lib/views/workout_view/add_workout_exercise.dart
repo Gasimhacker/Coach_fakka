@@ -75,7 +75,9 @@ class SubmitExerciseButton extends StatelessWidget {
       ),
       child: TextButton(
         onPressed: () {
-          Null;
+          null;
+          // GET Request to get all exercises //api/v1/<coach_id>/exercises to choose from and get the id
+          // POST request to add exercise /api/v1/<workout_id>/workout_exercises/<exercise_id> with body
         },
         child: Text(
           'Submit',
