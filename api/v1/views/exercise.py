@@ -14,7 +14,7 @@ def get_workout_exercises(workout_id):
     """get all exercises for a workout"""
     workout = storage.get(Workout, workout_id)
     if workout is None:
-        abort(404)
+        abort(404, "Workout Not Found")
     return jsonify([exercise.to_dict() for exercise in workout.exercises])
 
 @app_views.route('/<coach_id>/exercises', methods=['GET', 'POST'], strict_slashes=False)
@@ -33,7 +33,7 @@ def coach_exercise(coach_id):
             abort(400, 'Not a JSON')
         for attr in exercise_attr:
             if attr not in request.json.keys():
-                abort(400, f'Missing Attribute {attr}')
+                abort(400, f'Missing <{attr}> Attribute')
         exercise = Exercise(**request.json)
         exercise.save()
         return jsonify(exercise.to_dict()), 201
@@ -41,10 +41,14 @@ def coach_exercise(coach_id):
 @app_views.route('/<workout_id>/workout_exercises/<exercise_id>', methods=['GET', 'POST', 'PUT', 'DELETE'], strict_slashes=False)
 def workout_exercise_ctrl(workout_id, exercise_id):
     """ add get or delete or put values to workout_exercises table"""
+    workout = storage.get(Workout, workout_id)
+    exercise = storage.get(Exercise, exercise_id)
+    if workout is None:
+        abort(404, "Workout Not Found")
+    elif exercise is None:
+        abort(404, "Exercise Not Found")
+    
     if request.method == 'GET':
-        workout = storage.get(Workout, workout_id)
-        if workout is None:
-            abort(404)
         exercise_list = workout.exercises
         for exercise in exercise_list:
             if exercise.exercise_id == exercise_id:
@@ -56,24 +60,22 @@ def workout_exercise_ctrl(workout_id, exercise_id):
             abort(400, 'Not a JSON')
         for attr in WorkoutExercise_attr:
             if attr not in request.json.keys():
-                abort(400, f'Missing Attribute {attr}')
-        exercise = WorkoutExercise(**request.json)
-        exercise.save()
-        return jsonify(exercise.to_dict()), 201
+                abort(400, f'Missing <{attr}> Attribute')
+        work_exerc = WorkoutExercise(**request.json)
+        work_exerc.save()
+        [print(work.to_dict()) for work in workout.exercises]
+        return jsonify(work_exerc.to_dict()), 201
     
     if request.method == 'PUT':
         if not request.json:
             abort(400, 'Not a JSON')
-        workout = storage.get(Workout, workout_id)
-        if workout is None:
-            abort(404)
         ignore = ['id', 'created_at', 'updated_at']
         workout_exercise = workout.exercises
         for work_exec in workout_exercise:
             if work_exec.exercise_id == exercise_id:
                 exercise = work_exec
         if exercise is None:
-            abort(404, 'exercise not found in this workout')
+            abort(404, 'Exercise not Found in this Workout')
         for key, value in request.json.items():
             if key not in ignore:
                 setattr(exercise, key, value)
@@ -81,9 +83,6 @@ def workout_exercise_ctrl(workout_id, exercise_id):
         return jsonify(exercise.to_dict()), 200
     
     if request.method == 'DELETE':
-        workout = storage.get(Workout, workout_id)
-        if workout is None:
-            abort(404)
         workout_exercise = workout.exercises
         for work_exec in workout_exercise:
             if work_exec.exercise_id == exercise_id:
