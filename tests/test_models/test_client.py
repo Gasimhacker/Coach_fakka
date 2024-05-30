@@ -125,3 +125,19 @@ class TestClient(unittest.TestCase):
         client = Client()
         string = "[Client] ({}) {}".format(client.id, client.__dict__)
         self.assertEqual(string, str(client))
+        
+    def test_takee_kwargs(self):
+        """test that the instance is created with the correct key values"""
+        data = {
+            "email": "email@gmail.com",
+            "weight": 80,
+            "height": 150,
+            "age": 22,
+            "breakfast": "eggs",
+        }
+        s = Client(**data)
+        self.assertEqual(s.email, "email@gmail.com")
+        self.assertEqual(s.weight, 80)
+        self.assertEqual(s.height, 150)
+        self.assertEqual(s.age, 22)
+        self.assertFalse(hasattr(s, "Breakfast"))
