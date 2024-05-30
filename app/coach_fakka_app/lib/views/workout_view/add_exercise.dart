@@ -38,7 +38,7 @@ class _AddExerciesState extends State<AddExercies> {
 }
 
 class CustomFormFiled extends StatelessWidget {
-  String hintText;
+  final String hintText;
   CustomFormFiled(this.hintText);
   @override
   Widget build(BuildContext context) {
@@ -60,7 +60,7 @@ class CustomFormFiled extends StatelessWidget {
 }
 
 class FormTextTitle extends StatelessWidget {
-  String title;
+  final String title;
   FormTextTitle(this.title);
 
   @override

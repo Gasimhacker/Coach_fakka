@@ -1,10 +1,4 @@
-import 'package:coach_fakka_app/views/coach_views/individual_client_screen.dart';
-import 'package:coach_fakka_app/views/coach_views/main_coach_screen.dart';
-import 'package:coach_fakka_app/views/main_screen.dart';
-import 'package:coach_fakka_app/views/workout_view/add_exercise.dart';
-import 'package:coach_fakka_app/views/workout_view/add_workout_exercise.dart';
-import 'package:coach_fakka_app/views/workout_view/add_workout_screen.dart';
-
+import 'package:coach_fakka_app/views/register_views/client_signup_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -40,7 +34,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: AddWourkoutExercise(),
+      home: ClientSignup(),
     );
   }
 }

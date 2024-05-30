@@ -89,7 +89,7 @@ class SubmitExerciseButton extends StatelessWidget {
 }
 
 class ExerciseFormField extends StatelessWidget {
-  String title;
+  final String title;
   ExerciseFormField(this.title);
 
   @override
