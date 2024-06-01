@@ -3,67 +3,69 @@ class ClientModel {
   String? id;
   String? coachId;
   String? email;
-  int? age;
-  String? Gender;
+  String? gender = 'MALE';
+  String? trainningPlace;
+  String? injuryHistory = 'None';
+  int? traiangDays = 0;
+  int? activityLevel = 0;
+  int? age = 1;
+  int? height = 0;
   double? weight;
-  int? height;
   double? goalWeight;
-  String? traiiingPlace;
-  int? traiangDays;
   double? traiangHours;
-  int? activityLevel;
-  bool? needSupplement;
-  String? injuryHistory;
+  bool? needSupplement = false;
 
   ClientModel({
     this.name,
-    this.email,
-    this.Gender,
-    this.age,
-    this.weight,
-    this.height,
-    this.goalWeight,
-    this.traiiingPlace,
-    this.traiangDays,
-    this.traiangHours,
-    this.activityLevel,
-    this.needSupplement,
-    this.injuryHistory,
-    this.coachId,
     this.id,
+    this.coachId,
+    this.email,
+    this.gender,
+    this.trainningPlace,
+    this.injuryHistory,
+    this.traiangDays,
+    this.activityLevel,
+    this.age,
+    this.height,
+    this.weight,
+    this.goalWeight,
+    this.traiangHours,
+    this.needSupplement,
   });
 
   factory ClientModel.fromJson(Map<String, dynamic> json) => ClientModel(
         name: json["name"],
-        email: json["email"],
         id: json["id"],
         coachId: json["coachId"],
-        age: json["age"],
-        weight: json["weight"],
-        height: json["height"],
-        goalWeight: json["goalWeight"],
-        traiiingPlace: json["traiiingPlace"],
-        traiangDays: json["traiangDays"],
-        traiangHours: json["traiangHours"],
-        activityLevel: json["activityLevel"],
-        needSupplement: json["needSupplement"],
+        email: json["email"],
+        gender: json["gender"],
+        trainningPlace: json["trainningPlace"],
         injuryHistory: json["injuryHistory"],
+        traiangDays: json["traiangDays"],
+        activityLevel: json["activityLevel"],
+        age: json["age"],
+        height: json["height"],
+        weight: json["weight"],
+        goalWeight: json["goalWeight"],
+        traiangHours: json["traiangHours"],
+        needSupplement: json["needSupplement"],
       );
 
   Map<String, dynamic> toJson() => {
         "name": name,
-        "email": email,
         "id": id,
         "coachId": coachId,
-        "age": age,
-        "weight": weight,
-        "height": height,
-        "goalWeight": goalWeight,
-        "traiiingPlace": traiiingPlace,
-        "traiangDays": traiangDays,
-        "traiangHours": traiangHours,
-        "activityLevel": activityLevel,
-        "needSupplement": needSupplement,
+        "email": email,
+        "gender": gender,
+        "trainningPlace": trainningPlace,
         "injuryHistory": injuryHistory,
+        "traiangDays": traiangDays,
+        "activityLevel": activityLevel,
+        "age": age,
+        "height": height,
+        "weight": weight,
+        "goalWeight": goalWeight,
+        "traiangHours": traiangHours,
+        "needSupplement": needSupplement,
       };
 }

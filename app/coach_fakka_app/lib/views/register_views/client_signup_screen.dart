@@ -2,6 +2,7 @@ import 'package:coach_fakka_app/controllers/auth_contollers/client_auth_handler.
 import 'package:coach_fakka_app/models/client_model.dart';
 import 'package:coach_fakka_app/utils/show_snackBar.dart';
 import 'package:coach_fakka_app/utils/utils.dart';
+import 'package:coach_fakka_app/views/client_views/main_client_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -18,15 +19,32 @@ class _ClientSignupState extends State<ClientSignup> {
   late String password;
 
   _signUpClient() async {
+    print('Ax0');
     if (_formKey.currentState!.validate()) {
       await _authHandler.signUpClient(newClient, password).whenComplete(() {
+        //Check the return status
+        print('Ax1');
         setState(() {
+          print('Cx0');
           _formKey.currentState!.reset();
+          print('Cx1');
+          showSnack(context, 'Congratulations, Account Created Successfully');
         });
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) {
+              return ClientMainScreen(
+                clientId: 'Obada',
+              );
+            },
+          ),
+        );
       });
-      return showSnack(
-          context, 'Congratulations, Account Created Successfully');
+      print('Cx2');
+      showSnack(context, 'Congratulations, Account Created Successfully');
     } else {
+      print('Ax2');
       showSnack(context, 'Please fill all fields');
     }
   }
@@ -73,11 +91,6 @@ class _ClientSignupState extends State<ClientSignup> {
               SizedBox(
                 height: 10.0,
               ),
-              FormTextTitle('GENDER'),
-              ClientGenderField(),
-              SizedBox(
-                height: 10.0,
-              ),
               FormTextTitle('CURRENT WEIGHT'),
               ClientWeightField(),
               SizedBox(
@@ -108,6 +121,16 @@ class _ClientSignupState extends State<ClientSignup> {
               SizedBox(
                 height: 10.0,
               ),
+              FormTextTitle('INJURY HISTORY'),
+              ClientInjuryHistoryField(),
+              SizedBox(
+                height: 10.0,
+              ),
+              FormTextTitle('GENDER'),
+              ClientGenderField(),
+              SizedBox(
+                height: 10.0,
+              ),
               FormTextTitle('ACTIVITY LEVEL'),
               ClientActivityLevelField(),
               SizedBox(
@@ -115,11 +138,6 @@ class _ClientSignupState extends State<ClientSignup> {
               ),
               FormTextTitle('NEED SUPPLEMENT'),
               ClientNeedSupplementField(),
-              SizedBox(
-                height: 10.0,
-              ),
-              FormTextTitle('INJURY HISTORY'),
-              ClientInjuryHistoryField(),
               SizedBox(
                 height: 10.0,
               ),
@@ -173,7 +191,7 @@ class _ClientSignupState extends State<ClientSignup> {
           hintText: 'Enter your Full Name',
           hintStyle: TextStyle(color: Colors.grey),
         ),
-        onSaved: (value) {
+        onChanged: (value) {
           newClient.name = value;
         },
         validator: (value) {
@@ -204,7 +222,7 @@ class _ClientSignupState extends State<ClientSignup> {
           hintText: 'Enter your email',
           hintStyle: TextStyle(color: Colors.grey),
         ),
-        onSaved: (value) {
+        onChanged: (value) {
           newClient.email = value;
         },
         validator: (value) {
@@ -236,8 +254,8 @@ class _ClientSignupState extends State<ClientSignup> {
           hintText: 'Enter your password',
           hintStyle: TextStyle(color: Colors.grey),
         ),
-        onSaved: (value) {
-          password = value!;
+        onChanged: (value) {
+          password = value;
         },
         validator: (value) {
           if (value!.isEmpty) {
@@ -268,8 +286,8 @@ class _ClientSignupState extends State<ClientSignup> {
           hintText: 'Enter your age',
           hintStyle: TextStyle(color: Colors.grey),
         ),
-        onSaved: (value) {
-          newClient.age = int.parse(value!);
+        onChanged: (value) {
+          newClient.age = int.parse(value);
         },
         validator: (value) {
           if (value!.isEmpty) {
@@ -281,31 +299,32 @@ class _ClientSignupState extends State<ClientSignup> {
     );
   }
 
+  String selectedGender = 'MALE';
   Widget ClientGenderField() {
-    String _selectedGender = 'Male';
     return Center(
       child: Column(
         children: [
-          Text(
-            'Select your gender:',
-            style: TextStyle(fontSize: 18),
-          ),
-          SizedBox(height: 20),
-          DropdownButton<String>(
-            value: _selectedGender,
-            onChanged: (newValue) {
+          RadioListTile<String>(
+            title: const Text('MALE'),
+            value: 'MALE',
+            groupValue: selectedGender,
+            onChanged: (value) {
               setState(() {
-                _selectedGender = newValue!;
-                newClient.Gender = newValue;
+                selectedGender = value!;
+                newClient.gender = 'MALE';
               });
             },
-            items: <String>['Male', 'Female']
-                .map<DropdownMenuItem<String>>((String value) {
-              return DropdownMenuItem<String>(
-                value: value,
-                child: Text(value),
-              );
-            }).toList(),
+          ),
+          RadioListTile<String>(
+            title: const Text('FEMALE'),
+            value: 'FEMALE',
+            groupValue: selectedGender,
+            onChanged: (value) {
+              setState(() {
+                selectedGender = value!;
+                newClient.gender = 'FEMALE';
+              });
+            },
           ),
         ],
       ),
@@ -318,8 +337,8 @@ class _ClientSignupState extends State<ClientSignup> {
       width: MediaQuery.of(context).size.width - 80.0,
       height: 70.0,
       child: TextFormField(
-        onSaved: (value) {
-          newClient.weight = double.parse(value!);
+        onChanged: (value) {
+          newClient.weight = double.parse(value);
         },
         validator: (value) {
           if (value!.isEmpty) {
@@ -350,8 +369,8 @@ class _ClientSignupState extends State<ClientSignup> {
       width: MediaQuery.of(context).size.width - 80.0,
       height: 70.0,
       child: TextFormField(
-        onSaved: (value) {
-          newClient.height = int.parse(value!);
+        onChanged: (value) {
+          newClient.height = int.parse(value);
         },
         validator: (value) {
           if (value!.isEmpty) {
@@ -383,8 +402,8 @@ class _ClientSignupState extends State<ClientSignup> {
       height: 70.0,
       child: TextFormField(
         keyboardType: TextInputType.number,
-        onSaved: (value) {
-          newClient.goalWeight = double.parse(value!);
+        onChanged: (value) {
+          newClient.goalWeight = double.parse(value);
         },
         validator: (value) {
           if (value!.isEmpty) {
@@ -414,9 +433,8 @@ class _ClientSignupState extends State<ClientSignup> {
       width: MediaQuery.of(context).size.width - 80.0,
       height: 70.0,
       child: TextFormField(
-        keyboardType: TextInputType.number,
-        onSaved: (value) {
-          newClient.traiiingPlace = value;
+        onChanged: (value) {
+          newClient.trainningPlace = value;
         },
         validator: (value) {
           if (value!.isEmpty) {
@@ -446,8 +464,8 @@ class _ClientSignupState extends State<ClientSignup> {
       width: MediaQuery.of(context).size.width - 80.0,
       height: 70.0,
       child: TextFormField(
-        onSaved: (value) {
-          newClient.traiangDays = int.parse(value!);
+        onChanged: (value) {
+          newClient.traiangDays = int.parse(value);
         },
         validator: (value) {
           if (value!.isEmpty) {
@@ -478,8 +496,8 @@ class _ClientSignupState extends State<ClientSignup> {
       width: MediaQuery.of(context).size.width - 80.0,
       height: 70.0,
       child: TextFormField(
-        onSaved: (value) {
-          newClient.traiangHours = double.parse(value!);
+        onChanged: (value) {
+          newClient.traiangHours = double.parse(value);
         },
         validator: (value) {
           if (value!.isEmpty) {
@@ -504,64 +522,73 @@ class _ClientSignupState extends State<ClientSignup> {
     );
   }
 
-  Widget ClientActivityLevelField() {
-    return Container(
-      margin: EdgeInsets.symmetric(horizontal: 40.0),
-      child: Column(
-        children: [
-          Text(
-            'Activity Level',
-            style: TextStyle(fontSize: 16),
-          ),
-          Container(
-            width: MediaQuery.of(context).size.width - 80.0,
-            height: 70.0,
-            child: Slider(
-              value: 1,
-              min: 1,
-              max: 5,
-              divisions: 4, // Number of divisions (5 - 1)
-              onChanged: (newValue) {
-                setState(() {
-                  newClient.activityLevel = newValue.toInt();
-                });
-              },
-            ),
-          ),
-          Text(
-            'Level 1',
-            style: TextStyle(fontSize: 16),
-          ),
-        ],
-      ),
+  String selectedActivityLevel = '1';
+  ClientActivityLevelField() {
+    return Column(
+      children: [
+        RadioListTile<String>(
+          title: const Text('1 LOW'),
+          value: '1',
+          groupValue: selectedActivityLevel,
+          onChanged: (value) {
+            setState(() {
+              selectedActivityLevel = value!;
+              newClient.activityLevel = 1;
+            });
+          },
+        ),
+        RadioListTile<String>(
+          title: const Text('2 MEDUIM'),
+          value: '2',
+          groupValue: selectedActivityLevel,
+          onChanged: (value) {
+            setState(() {
+              selectedActivityLevel = value!;
+              newClient.activityLevel = 2;
+            });
+          },
+        ),
+        RadioListTile<String>(
+          title: const Text('3 HIGH'),
+          value: '3',
+          groupValue: selectedActivityLevel,
+          onChanged: (value) {
+            setState(() {
+              selectedActivityLevel = value!;
+              newClient.activityLevel = 3;
+            });
+          },
+        ),
+      ],
     );
   }
 
+  String selectedSupplement = 'NO';
   Widget ClientNeedSupplementField() {
-    String _selectedSupplement = 'NO';
     return Center(
       child: Column(
         children: [
-          Text(
-            'Do you need supplement?',
-            style: TextStyle(fontSize: 18),
-          ),
-          SizedBox(height: 20),
-          DropdownButton<String>(
-            value: _selectedSupplement,
-            onChanged: (newValue) {
+          RadioListTile<String>(
+            title: const Text('NO'),
+            value: 'NO',
+            groupValue: selectedSupplement,
+            onChanged: (value) {
               setState(() {
-                _selectedSupplement = newValue!;
-                newClient.needSupplement = bool.parse(newValue);
+                selectedSupplement = value!;
+                newClient.needSupplement = false;
               });
             },
-            items: <String>['YES', 'NO']
-                .map<DropdownMenuItem<String>>((String value) {
-              return DropdownMenuItem<String>(
-                value: value,
-                child: Text(value),
-              );
-            }).toList(),
+          ),
+          RadioListTile<String>(
+            title: const Text('YES'),
+            value: 'YES',
+            groupValue: selectedSupplement,
+            onChanged: (value) {
+              setState(() {
+                selectedSupplement = value!;
+                newClient.needSupplement = true;
+              });
+            },
           ),
         ],
       ),
@@ -574,8 +601,14 @@ class _ClientSignupState extends State<ClientSignup> {
       width: MediaQuery.of(context).size.width - 80.0,
       height: 70.0,
       child: TextFormField(
-        onSaved: (value) {
+        onChanged: (value) {
           newClient.injuryHistory = value;
+        },
+        validator: (value) {
+          if (value!.isEmpty) {
+            return 'Please enter your injury history';
+          }
+          return null;
         },
         decoration: InputDecoration(
           labelStyle: TextStyle(color: Colors.grey),
@@ -599,8 +632,14 @@ class _ClientSignupState extends State<ClientSignup> {
       width: MediaQuery.of(context).size.width - 80.0,
       height: 70.0,
       child: TextFormField(
-        onSaved: (value) {
-          newClient.injuryHistory = value;
+        onChanged: (value) {
+          newClient.coachId = value;
+        },
+        validator: (value) {
+          if (value!.isEmpty) {
+            return 'Please enter your coach ID';
+          }
+          return null;
         },
         decoration: InputDecoration(
           labelStyle: TextStyle(color: Colors.grey),

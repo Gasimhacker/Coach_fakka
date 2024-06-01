@@ -1,4 +1,7 @@
+import 'package:coach_fakka_app/controllers/auth_contollers/client_auth_handler.dart';
+import 'package:coach_fakka_app/utils/show_snackBar.dart';
 import 'package:coach_fakka_app/utils/utils.dart';
+import 'package:coach_fakka_app/views/client_views/main_client_screen.dart';
 import 'package:flutter/material.dart';
 
 class ClientLogin extends StatefulWidget {
@@ -9,43 +12,64 @@ class ClientLogin extends StatefulWidget {
 }
 
 class _ClientLoginState extends State<ClientLogin> {
+  GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  ClientAuthHandler _authController = ClientAuthHandler();
+  late String email;
+  late String password;
+
+  _LoginClient() async {
+    if (_formKey.currentState!.validate()) {
+      await _authController.signInClient(email, password);
+
+      if (_authController.signInClientStatus) {
+        return Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) {
+              return ClientMainScreen();
+            },
+          ),
+        );
+      }
+      showSnack(context, 'Sing in failed');
+    } else {
+      showSnack(context, 'Please fill all fields');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              TraineeLoginText(),
-              SizedBox(
-                height: 30.0,
-              ),
-              TraineeEmailField(),
-              SizedBox(
-                height: 30.0,
-              ),
-              TraineePasswordField(),
-              SizedBox(
-                height: 30.0,
-              ),
-              TraineeLoginButton(),
-              TraineeToSignupButton(),
-            ],
+      body: Form(
+        key: _formKey,
+        child: Center(
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                TraineeLoginText(),
+                SizedBox(
+                  height: 30.0,
+                ),
+                TraineeEmailField(),
+                SizedBox(
+                  height: 30.0,
+                ),
+                TraineePasswordField(),
+                SizedBox(
+                  height: 30.0,
+                ),
+                TraineeLoginButton(),
+                TraineeToSignupButton(),
+              ],
+            ),
           ),
         ),
       ),
     );
   }
-}
 
-class TraineeToSignupButton extends StatelessWidget {
-  const TraineeToSignupButton({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
+  TraineeToSignupButton() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -68,11 +92,8 @@ class TraineeToSignupButton extends StatelessWidget {
       ],
     );
   }
-}
 
-class TraineeLoginButton extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
+  TraineeLoginButton() {
     return Container(
       width: MediaQuery.of(context).size.width - 80.0,
       height: 50.0,
@@ -91,11 +112,8 @@ class TraineeLoginButton extends StatelessWidget {
       ),
     );
   }
-}
 
-class TraineePasswordField extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
+  TraineePasswordField() {
     return Container(
       width: MediaQuery.of(context).size.width - 80.0,
       height: 50.0,
@@ -118,11 +136,8 @@ class TraineePasswordField extends StatelessWidget {
       ),
     );
   }
-}
 
-class TraineeEmailField extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
+  TraineeEmailField() {
     return Container(
       width: MediaQuery.of(context).size.width - 80.0,
       height: 50.0,
@@ -142,11 +157,8 @@ class TraineeEmailField extends StatelessWidget {
       ),
     );
   }
-}
 
-class TraineeLoginText extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
+  TraineeLoginText() {
     return Text(
       'Trainee Login',
       style: TextStyle(

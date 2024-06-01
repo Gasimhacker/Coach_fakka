@@ -3,9 +3,9 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class ClinetNetworkHandler {
-  static String baseurl = "http://localhost:3000";
+  static String baseurl = "http://coolscientist.tech/Coachfakkah/api/v1";
 
-  static Future<ClientModel> fetchData(
+  static Future<String> fetchData(
     String endpoint,
   ) async {
     final url = Uri.parse('$baseurl/$endpoint');

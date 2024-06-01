@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:coach_fakka_app/controllers/client_controllers/client_api_handler.dart';
 import 'package:coach_fakka_app/models/client_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -7,6 +8,7 @@ class ClientAuthHandler {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   Future<String> signUpClient(ClientModel newClient, String password) async {
+    print('Bx0');
     String response = 'Something went wrong';
     try {
       if (newClient.email!.isNotEmpty &&
@@ -17,21 +19,47 @@ class ClientAuthHandler {
         // ignore: unused_local_variable
         UserCredential cred = await _auth.createUserWithEmailAndPassword(
             email: newClient.email!, password: password);
-
+        print('Bx1');
         //Crete in database
         await _firestore
-            .collection('customers')
+            .collection('client')
             .doc(cred.user!.uid)
             .set(newClient.toJson());
+        print('Bx2');
         response = 'Customer created successfully';
       } else {
         response = 'Please fill all fields';
       }
     } catch (e) {
+      print('Bx3');
+
       response = e.toString();
+      print(response);
     }
 
     return response;
+  }
+
+  bool signInClientStatus = false;
+  Future<ClientModel> signInClient(String email, String password) async {
+    try {
+      if (email.isNotEmpty && password.isNotEmpty) {
+        // sign in user
+        // ignore: unused_local_variable
+        await _auth.signInWithEmailAndPassword(
+            email: email, password: password);
+        signInClientStatus = true;
+
+        _firestore.collection('clients').doc().get().then((value) {
+          return ClientApiHandler.getClientData(value.id);
+        });
+      } else {
+        signInClientStatus = false;
+      }
+    } catch (e) {
+      signInClientStatus = false;
+    }
+    throw Exception('Failed to sign in');
   }
 
   // bool signInCustomersStatus = false;

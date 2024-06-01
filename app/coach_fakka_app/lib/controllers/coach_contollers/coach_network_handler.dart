@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class CoachNetworkHandler {
-  static String baseurl = "http://localhost:3000";
+  static String baseurl = "http://coolscientist.tech/Coachfakkah/api/v1";
 
   static Future<CoachModel> fetchData(
     String endpoint,
