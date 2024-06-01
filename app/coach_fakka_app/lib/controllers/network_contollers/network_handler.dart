@@ -1,11 +1,10 @@
-import 'package:coach_fakka_app/models/coach_model.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-class CoachNetworkHandler {
+class NetworkHandler {
   static String baseurl = "http://coolscientist.tech/Coachfakkah/api/v1";
 
-  static Future<CoachModel> fetchData(
+  static Future<String> fetchData(
     String endpoint,
   ) async {
     final url = Uri.parse('$baseurl/$endpoint');
@@ -13,23 +12,7 @@ class CoachNetworkHandler {
     final response = await http.get(url);
 
     if (response.statusCode == 200) {
-      var jsonResponse = json.decode(response.body);
-      return jsonResponse;
-    } else {
-      throw Exception('Failed to load workouts');
-    }
-  }
-
-  static Future<List<CoachModel>> fetchDataList(
-    String endpoint,
-  ) async {
-    final url = Uri.parse('$baseurl/$endpoint');
-
-    final response = await http.get(url);
-
-    if (response.statusCode == 200) {
-      var jsonResponse = json.decode(response.body);
-      return jsonResponse.map((coachs) => CoachModel.fromJson(coachs)).toList();
+      return response.body;
     } else {
       throw Exception('Failed to load workouts');
     }
@@ -37,7 +20,7 @@ class CoachNetworkHandler {
 
   static Future<String> postData(
     String endpoint,
-    CoachModel coach,
+    dynamic coach,
   ) async {
     final url = Uri.parse('$baseurl/$endpoint');
     final headers = {'Content-Type': 'application/json'};
@@ -48,8 +31,24 @@ class CoachNetworkHandler {
       print('Data Sending Success.');
       return response.body;
     } else {
-      print('Data: ${response.statusCode}');
+      print('Error Code   : ${response.statusCode}');
+      print('Error message: ${response.body}');
       return 'Failed to send data';
     }
   }
 }
+
+  // static Future<List> fetchDataList(
+  //   String endpoint,
+  // ) async {
+  //   final url = Uri.parse('$baseurl/$endpoint');
+
+  //   final response = await http.get(url);
+
+  //   if (response.statusCode == 200) {
+  //     var jsonResponse = json.decode(response.body);
+  //     return jsonResponse.map((coachs) => CoachModel.fromJson(coachs)).toList();
+  //   } else {
+  //     throw Exception('Failed to load workouts');
+  //   }
+  // }

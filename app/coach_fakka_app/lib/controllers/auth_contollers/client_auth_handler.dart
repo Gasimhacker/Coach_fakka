@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:coach_fakka_app/controllers/client_controllers/client_api_handler.dart';
 import 'package:coach_fakka_app/models/client_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -51,7 +50,7 @@ class ClientAuthHandler {
         signInClientStatus = true;
 
         _firestore.collection('clients').doc().get().then((value) {
-          return ClientApiHandler.getClientData(value.id);
+          print('');
         });
       } else {
         signInClientStatus = false;
