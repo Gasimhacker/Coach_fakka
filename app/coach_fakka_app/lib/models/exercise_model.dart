@@ -1,8 +1,8 @@
 class ExerciseModel {
   String id;
-  final String name;
-  final String description;
-  final String video;
+  String name;
+  String description;
+  String video;
 
   ExerciseModel(
     this.id, {

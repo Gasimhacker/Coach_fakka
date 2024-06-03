@@ -1,40 +1,44 @@
 class WorkoutModel {
-  final String? id;
-  final String? name;
-  final String? note;
-  final DateTime? creatdAt;
-  final String? coachId;
-  final String? client_id;
+  String? id;
+  String? name;
+  String? note;
+  String? creatd_at;
+  String? updated_at;
+  String? client_id;
   bool? done = false;
+  int? number_exercises = 0;
 
   WorkoutModel(
       {this.id,
       this.name,
       this.note,
-      this.creatdAt,
-      this.coachId,
+      this.creatd_at,
       this.client_id,
-      this.done});
+      this.done,
+      this.number_exercises,
+      this.updated_at});
 
   factory WorkoutModel.fromJson(Map<String, dynamic> json) {
     return WorkoutModel(
       id: json['id'],
       name: json['name'],
       note: json['note'],
-      creatdAt: json['creatdAt'],
+      creatd_at: json['creatdAt'],
       client_id: json['client_id'],
-      coachId: json['coachId'],
       done: json['done'],
+      number_exercises: json['number_exercises'],
+      updated_at: json['updated_at'],
     );
   }
 
   Map<String, dynamic> toJson() => {
         'id': id,
         'name': name,
-        'coachId': coachId,
         'client_id': client_id,
         'note': note,
-        'creatdAt': creatdAt,
+        'creatdAt': creatd_at,
         'done': done,
+        'number_exercises': number_exercises,
+        'updated_at': updated_at,
       };
 }

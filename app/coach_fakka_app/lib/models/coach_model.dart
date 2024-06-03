@@ -1,8 +1,8 @@
 class CoachModel {
-  final String? id;
-  final String? name;
-  final String? email;
-  final String? password = '123456';
+  String? id;
+  String? name;
+  String? email;
+  String? password = '123456';
   // final String? phone;
   // final String? address;
 

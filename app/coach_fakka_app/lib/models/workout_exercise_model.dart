@@ -1,13 +1,13 @@
 class WorkoutExerciseModel {
-  final String? id;
-  final String? workoutId;
-  final String? exerciseId;
-  final int? sets;
-  final int? restTime;
-  final int? reps;
-  final int? rpe;
-  final int? weight;
-  final bool? done;
+  String? id;
+  String? workoutId;
+  String? exerciseId;
+  int? sets;
+  int? restTime;
+  int? reps;
+  int? rpe;
+  int? weight;
+  bool? done;
 
   WorkoutExerciseModel({
     this.id,
