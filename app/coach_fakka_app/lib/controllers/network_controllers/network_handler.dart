@@ -14,17 +14,19 @@ class NetworkHandler {
     if (response.statusCode == 200) {
       return response.body;
     } else {
+      print('Error Code   : ${response.statusCode}');
+      print('Error message: ${response.body}');
       throw Exception('Failed to load workouts');
     }
   }
 
   static Future<String> postData(
     String endpoint,
-    dynamic coach,
+    dynamic data,
   ) async {
     final url = Uri.parse('$baseurl/$endpoint');
     final headers = {'Content-Type': 'application/json'};
-    final body = jsonEncode(coach);
+    final body = jsonEncode(data);
     final response = await http.post(url, headers: headers, body: body);
 
     if (response.statusCode == 201) {

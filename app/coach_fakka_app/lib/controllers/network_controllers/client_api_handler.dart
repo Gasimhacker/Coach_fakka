@@ -1,10 +1,10 @@
 import 'dart:convert';
-import 'package:coach_fakka_app/controllers/network_handler.dart';
-import 'package:coach_fakka_app/models/client_model.dart';
+import 'package:coach_fakka_app/controllers/controllers.dart';
+import 'package:coach_fakka_app/models/models.dart';
 
 class ClientApiHandler {
   static Future<ClientModel> createNewClient(ClientModel newClient) async {
-    String endPoint = '${newClient.coachId}/clients';
+    String endPoint = '${newClient.coach_id}/clients';
     String response = await NetworkHandler.postData(endPoint, newClient);
     return ClientModel.fromJson(json.decode(response));
   }

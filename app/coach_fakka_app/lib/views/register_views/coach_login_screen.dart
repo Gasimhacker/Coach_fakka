@@ -1,4 +1,6 @@
 import 'package:coach_fakka_app/utils/utils.dart';
+import 'package:coach_fakka_app/views/coach_views/main_coach_screen.dart';
+import 'package:coach_fakka_app/views/register_views/coach_signup_screen.dart';
 import 'package:flutter/material.dart';
 
 class CoachLogin extends StatefulWidget {
@@ -49,7 +51,9 @@ class CoachToSignupButton extends StatelessWidget {
         ),
         TextButton(
           onPressed: () {
-            null;
+            Navigator.push(context, MaterialPageRoute(builder: (context) {
+              return CoachSignup();
+            }));
           },
           child: Text(
             'Sign Up',
@@ -76,7 +80,13 @@ class CoachLoginButton extends StatelessWidget {
       ),
       child: TextButton(
         onPressed: () {
-          //Get CoachID from fireBase
+          //TODO :Get CoachID from fireBase and navigate to CoachMainScreen
+          Navigator.pushReplacement(context,
+              MaterialPageRoute(builder: (context) {
+            return CoachMainScreen(
+              coachId: '1c660b17-ad1d-4159-a97e-d17a6d24775b',
+            );
+          }));
         },
         child: Text(
           'Login',

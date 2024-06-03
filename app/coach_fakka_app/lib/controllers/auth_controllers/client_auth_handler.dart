@@ -12,7 +12,7 @@ class ClientAuthHandler {
     try {
       if (newClient.email!.isNotEmpty &&
           newClient.name!.isNotEmpty &&
-          newClient.coachId!.isNotEmpty &&
+          newClient.coach_id!.isNotEmpty &&
           password.isNotEmpty) {
         // create user
         // ignore: unused_local_variable

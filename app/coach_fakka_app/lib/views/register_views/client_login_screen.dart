@@ -1,4 +1,4 @@
-import 'package:coach_fakka_app/controllers/auth_contollers/client_auth_handler.dart';
+import 'package:coach_fakka_app/controllers/auth_controllers/client_auth_handler.dart';
 import 'package:coach_fakka_app/utils/show_snackBar.dart';
 import 'package:coach_fakka_app/utils/utils.dart';
 import 'package:coach_fakka_app/views/client_views/main_client_screen.dart';

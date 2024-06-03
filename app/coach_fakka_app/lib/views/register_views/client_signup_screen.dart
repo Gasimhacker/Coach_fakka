@@ -1,4 +1,4 @@
-import 'package:coach_fakka_app/controllers/auth_contollers/client_auth_handler.dart';
+import 'package:coach_fakka_app/controllers/auth_controllers/client_auth_handler.dart';
 import 'package:coach_fakka_app/models/client_model.dart';
 import 'package:coach_fakka_app/utils/show_snackBar.dart';
 import 'package:coach_fakka_app/utils/utils.dart';
@@ -370,7 +370,7 @@ class _ClientSignupState extends State<ClientSignup> {
       height: 70.0,
       child: TextFormField(
         onChanged: (value) {
-          newClient.height = int.parse(value);
+          newClient.height = double.parse(value);
         },
         validator: (value) {
           if (value!.isEmpty) {
@@ -403,7 +403,7 @@ class _ClientSignupState extends State<ClientSignup> {
       child: TextFormField(
         keyboardType: TextInputType.number,
         onChanged: (value) {
-          newClient.goalWeight = double.parse(value);
+          newClient.goal_weight = double.parse(value);
         },
         validator: (value) {
           if (value!.isEmpty) {
@@ -434,7 +434,7 @@ class _ClientSignupState extends State<ClientSignup> {
       height: 70.0,
       child: TextFormField(
         onChanged: (value) {
-          newClient.trainningPlace = value;
+          newClient.training_place = value;
         },
         validator: (value) {
           if (value!.isEmpty) {
@@ -465,7 +465,7 @@ class _ClientSignupState extends State<ClientSignup> {
       height: 70.0,
       child: TextFormField(
         onChanged: (value) {
-          newClient.traiangDays = int.parse(value);
+          newClient.training_days = int.parse(value);
         },
         validator: (value) {
           if (value!.isEmpty) {
@@ -497,7 +497,7 @@ class _ClientSignupState extends State<ClientSignup> {
       height: 70.0,
       child: TextFormField(
         onChanged: (value) {
-          newClient.traiangHours = double.parse(value);
+          newClient.training_hours = int.parse(value);
         },
         validator: (value) {
           if (value!.isEmpty) {
@@ -533,7 +533,7 @@ class _ClientSignupState extends State<ClientSignup> {
           onChanged: (value) {
             setState(() {
               selectedActivityLevel = value!;
-              newClient.activityLevel = 1;
+              newClient.activity_level = 1;
             });
           },
         ),
@@ -544,7 +544,7 @@ class _ClientSignupState extends State<ClientSignup> {
           onChanged: (value) {
             setState(() {
               selectedActivityLevel = value!;
-              newClient.activityLevel = 2;
+              newClient.activity_level = 2;
             });
           },
         ),
@@ -555,7 +555,7 @@ class _ClientSignupState extends State<ClientSignup> {
           onChanged: (value) {
             setState(() {
               selectedActivityLevel = value!;
-              newClient.activityLevel = 3;
+              newClient.activity_level = 3;
             });
           },
         ),
@@ -575,7 +575,7 @@ class _ClientSignupState extends State<ClientSignup> {
             onChanged: (value) {
               setState(() {
                 selectedSupplement = value!;
-                newClient.needSupplement = false;
+                newClient.need_supplements = false;
               });
             },
           ),
@@ -586,7 +586,7 @@ class _ClientSignupState extends State<ClientSignup> {
             onChanged: (value) {
               setState(() {
                 selectedSupplement = value!;
-                newClient.needSupplement = true;
+                newClient.need_supplements = true;
               });
             },
           ),
@@ -602,7 +602,7 @@ class _ClientSignupState extends State<ClientSignup> {
       height: 70.0,
       child: TextFormField(
         onChanged: (value) {
-          newClient.injuryHistory = value;
+          newClient.injury_history = value;
         },
         validator: (value) {
           if (value!.isEmpty) {
@@ -633,7 +633,7 @@ class _ClientSignupState extends State<ClientSignup> {
       height: 70.0,
       child: TextFormField(
         onChanged: (value) {
-          newClient.coachId = value;
+          newClient.coach_id = value;
         },
         validator: (value) {
           if (value!.isEmpty) {

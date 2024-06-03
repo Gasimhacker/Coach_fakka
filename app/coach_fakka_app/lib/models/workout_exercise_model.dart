@@ -1,4 +1,4 @@
-class WorkoutExercise {
+class WorkoutExerciseModel {
   final String? id;
   final String? workoutId;
   final String? exerciseId;
@@ -9,7 +9,7 @@ class WorkoutExercise {
   final int? weight;
   final bool? done;
 
-  WorkoutExercise({
+  WorkoutExerciseModel({
     this.id,
     this.workoutId,
     this.exerciseId,
@@ -21,8 +21,8 @@ class WorkoutExercise {
     this.done,
   });
 
-  factory WorkoutExercise.fromJson(Map<String, dynamic> json) {
-    return WorkoutExercise(
+  factory WorkoutExerciseModel.fromJson(Map<String, dynamic> json) {
+    return WorkoutExerciseModel(
       id: json['id'],
       workoutId: json['workoutId'],
       exerciseId: json['exerciseId'],

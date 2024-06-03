@@ -1,18 +1,32 @@
+import 'package:coach_fakka_app/controllers/network_controllers/coach_api_handler.dart';
+import 'package:coach_fakka_app/models/models.dart';
 import 'package:coach_fakka_app/utils/utils.dart';
 import 'package:coach_fakka_app/views/coach_views/widgets.dart';
 import 'package:coach_fakka_app/views/workout_view/add_exercise.dart';
 import 'package:flutter/material.dart';
 
 class CoachMainScreen extends StatefulWidget {
+  final String coachId;
+  CoachMainScreen({required this.coachId});
   @override
   State<CoachMainScreen> createState() => _CoachMainScreenState();
 }
 
 class _CoachMainScreenState extends State<CoachMainScreen> {
+  CoachModel currentCoach = CoachModel();
+  List<ClientModel> trainees = [];
+
+  _initCall() async {
+    currentCoach = await CoachApiHandler.getCoach(widget.coachId);
+    trainees = await CoachApiHandler.getMyClients(widget.coachId);
+    setState(() {});
+  }
+
   @override
   void initState() {
     // TODO: GET REQUEST FROM API TO GET COACH DATA /api/v1/coaches/<coach_id>
     // TODO: GET REQUEST FROM API TO GET COACH TRAINEES /api/v1/<coach_id>/clients >> lIST
+    _initCall();
     super.initState();
   }
 
