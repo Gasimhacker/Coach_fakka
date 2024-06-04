@@ -1,4 +1,6 @@
+import 'package:coach_fakka_app/controllers/network_controllers/coach_api_handler.dart';
 import 'package:coach_fakka_app/controllers/network_controllers/workout_api_handler.dart';
+import 'package:coach_fakka_app/models/coach_model.dart';
 import 'package:coach_fakka_app/models/workout_model.dart';
 
 void main() async {
@@ -19,4 +21,12 @@ void main() async {
   workouts.forEach((workout) {
     print(workout.toJson());
   });
+
+  CoachModel coach = CoachModel(
+    name: 'John Doe',
+    email: 'Ob@hotmail.com',
+  );
+
+  CoachModel created = await CoachApiHandler.createNewCoach(coach);
+  print(created.id);
 }

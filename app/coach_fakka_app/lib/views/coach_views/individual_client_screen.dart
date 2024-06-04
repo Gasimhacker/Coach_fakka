@@ -5,7 +5,9 @@ import 'package:flutter/material.dart';
 import '../../utils/utils.dart';
 
 class IndividualClientView extends StatefulWidget {
-  const IndividualClientView({super.key});
+  final String? clientID;
+  final String? coachID;
+  IndividualClientView({required this.clientID, required this.coachID});
 
   @override
   State<IndividualClientView> createState() => _IndividualClientViewState();

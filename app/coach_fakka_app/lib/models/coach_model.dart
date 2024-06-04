@@ -3,8 +3,6 @@ class CoachModel {
   String? name;
   String? email;
   String? password = '123456';
-  // final String? phone;
-  // final String? address;
 
   CoachModel({this.id, this.name, this.email});
 

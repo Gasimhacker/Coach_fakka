@@ -19,19 +19,31 @@ class _ClientLoginState extends State<ClientLogin> {
 
   _LoginClient() async {
     if (_formKey.currentState!.validate()) {
-      await _authController.signInClient(email, password);
-
-      if (_authController.signInClientStatus) {
-        return Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) {
-              return ClientMainScreen();
-            },
-          ),
-        );
+      String _response = await _authController.signInClient(email, password);
+      print(_response);
+      if (_response != 'ERROR 1' &&
+          _response != 'ERROR 2' &&
+          _response != 'ERROR 3') {
+        Future.delayed(Duration(seconds: 2), () {
+          return Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) {
+                return ClientMainScreen(
+                  clientId: _response,
+                );
+              },
+            ),
+          );
+        });
       }
-      showSnack(context, 'Sing in failed');
+      if (_response == 'ERROR 1') {
+        showSnack(context, 'Please fill all fields');
+      } else if (_response == 'ERROR 2') {
+        showSnack(context, 'No such client found');
+      } else if (_response == 'ERROR 3') {
+        showSnack(context, 'Password or email is incorrect');
+      }
     } else {
       showSnack(context, 'Please fill all fields');
     }
@@ -103,7 +115,7 @@ class _ClientLoginState extends State<ClientLogin> {
       ),
       child: TextButton(
         onPressed: () {
-          Null;
+          _LoginClient();
         },
         child: Text(
           'Login',
@@ -118,6 +130,12 @@ class _ClientLoginState extends State<ClientLogin> {
       width: MediaQuery.of(context).size.width - 80.0,
       height: 50.0,
       child: TextFormField(
+        obscureText: true,
+        onChanged: (value) {
+          password = value;
+        },
+        validator: (value) =>
+            value!.isEmpty ? 'Please enter your password' : null,
         decoration: InputDecoration(
           labelStyle:
               TextStyle(color: Colors.white), // Customize label text color
@@ -142,6 +160,10 @@ class _ClientLoginState extends State<ClientLogin> {
       width: MediaQuery.of(context).size.width - 80.0,
       height: 50.0,
       child: TextFormField(
+        onChanged: (value) {
+          email = value;
+        },
+        validator: (value) => value!.isEmpty ? 'Please enter your email' : null,
         decoration: InputDecoration(
           labelStyle: TextStyle(color: Colors.grey),
           border: OutlineInputBorder(),

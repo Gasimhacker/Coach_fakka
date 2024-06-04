@@ -16,7 +16,8 @@ class NetworkHandler {
     } else {
       print('Error Code   : ${response.statusCode}');
       print('Error message: ${response.body}');
-      throw Exception('Failed to load workouts');
+
+      return response.statusCode.toString();
     }
   }
 

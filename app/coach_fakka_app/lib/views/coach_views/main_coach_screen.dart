@@ -1,20 +1,21 @@
 import 'package:coach_fakka_app/controllers/network_controllers/coach_api_handler.dart';
 import 'package:coach_fakka_app/models/models.dart';
 import 'package:coach_fakka_app/utils/utils.dart';
+import 'package:coach_fakka_app/views/coach_views/individual_client_screen.dart';
 import 'package:coach_fakka_app/views/coach_views/widgets.dart';
 import 'package:coach_fakka_app/views/workout_view/add_exercise.dart';
 import 'package:flutter/material.dart';
 
 class CoachMainScreen extends StatefulWidget {
-  final String coachId;
+  late final String coachId;
   CoachMainScreen({required this.coachId});
   @override
   State<CoachMainScreen> createState() => _CoachMainScreenState();
 }
 
 class _CoachMainScreenState extends State<CoachMainScreen> {
-  CoachModel currentCoach = CoachModel();
-  List<ClientModel> trainees = [];
+  late CoachModel currentCoach = CoachModel(name: ' ', email: ' ', id: ' ');
+  late List<ClientModel> trainees = [];
 
   _initCall() async {
     currentCoach = await CoachApiHandler.getCoach(widget.coachId);
@@ -24,8 +25,6 @@ class _CoachMainScreenState extends State<CoachMainScreen> {
 
   @override
   void initState() {
-    // TODO: GET REQUEST FROM API TO GET COACH DATA /api/v1/coaches/<coach_id>
-    // TODO: GET REQUEST FROM API TO GET COACH TRAINEES /api/v1/<coach_id>/clients >> lIST
     _initCall();
     super.initState();
   }
@@ -54,7 +53,7 @@ class _CoachMainScreenState extends State<CoachMainScreen> {
                 ),
                 SizedBox(height: 10),
                 UserNameWidget(
-                  userName: 'Coach Fakka',
+                  userName: currentCoach.name!,
                 ),
                 SizedBox(height: 20),
                 SearchBarWidget(),
@@ -63,11 +62,9 @@ class _CoachMainScreenState extends State<CoachMainScreen> {
           ),
           Expanded(
             child: ListView.builder(
-              itemCount: traineeList.length, // Replace with your data
+              itemCount: trainees.length, // Replace with your data
               itemBuilder: (context, index) {
-                return ClientListTile(
-                  index: index,
-                );
+                return TraineesListTile(index);
               },
             ),
           ),
@@ -83,81 +80,8 @@ class _CoachMainScreenState extends State<CoachMainScreen> {
       drawer: CoachDrawer(),
     );
   }
-}
 
-class CoachDrawer extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Drawer(
-      backgroundColor: thirdColor,
-      child: ListView(
-        children: [
-          DrawerHeader(
-            child: Column(
-              children: [
-                UserProfilePic(
-                  imagePath: dummyImagePath,
-                ),
-                UserNameWidget(
-                  userName: 'Coach Fakka',
-                ),
-              ],
-            ),
-            decoration: BoxDecoration(
-              color: mainColor,
-            ),
-          ),
-          ListTile(
-            title: Text(
-              'Add Trainee',
-              style: TextStyle(color: mainColor, fontFamily: 'Coiny'),
-            ),
-            onTap: () {
-              // Implement settings functionality
-            },
-          ),
-          ListTile(
-            title: Text(
-              'Add Exercise',
-              style: TextStyle(color: mainColor, fontFamily: 'Coiny'),
-            ),
-            onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return AddExercies();
-              }));
-            },
-          ),
-          ListTile(
-            title: Text(
-              'Profile',
-              style: TextStyle(color: mainColor, fontFamily: 'Coiny'),
-            ),
-            onTap: () {
-              // Implement profile functionality
-            },
-          ),
-          ListTile(
-            title: Text(
-              'Logout',
-              style: TextStyle(color: mainColor, fontFamily: 'Coiny'),
-            ),
-            onTap: () {
-              // Implement logout functionality
-            },
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-// ignore: must_be_immutable
-class ClientListTile extends StatelessWidget {
-  int index;
-  ClientListTile({required this.index});
-
-  @override
-  Widget build(BuildContext context) {
+  Widget TraineesListTile(int index) {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       decoration: BoxDecoration(
@@ -166,13 +90,13 @@ class ClientListTile extends StatelessWidget {
       ),
       child: ListTile(
         contentPadding: EdgeInsets.all(10),
-        leading: CircleAvatar(
-          backgroundImage: AssetImage(
-            traineeList[index].imagePath,
-          ), // Replace with trainee images
-        ),
+        // leading: CircleAvatar(
+        //   backgroundImage: AssetImage(
+        //     [index].imagePath,
+        //   ), // Replace with trainee images
+        // ),
         title: Text(
-          traineeList[index].name,
+          trainees[index].name!,
           style: TextStyle(
             fontSize: 16,
             color: Colors.white,
@@ -184,6 +108,10 @@ class ClientListTile extends StatelessWidget {
             // Implement edit functionality
             // GET TRAINEE ID : traineeList[index].id
             // GOTO : individual trainee screen
+            Navigator.push(context, MaterialPageRoute(builder: (context) {
+              return IndividualClientView(
+                  clientID: trainees[index].id!, coachID: widget.coachId);
+            }));
           },
           child: Text('Train',
               style: TextStyle(
@@ -194,6 +122,108 @@ class ClientListTile extends StatelessWidget {
   }
 }
 
+class CoachDrawer extends StatelessWidget {
+  final ValueNotifier<bool> _showFeatureLater = ValueNotifier(false);
+  @override
+  Widget build(BuildContext context) {
+    return Drawer(
+      backgroundColor: thirdColor,
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          ListView(
+            children: [
+              DrawerHeader(
+                child: Column(
+                  children: [
+                    UserProfilePic(
+                      imagePath: dummyImagePath,
+                    ),
+                    UserNameWidget(
+                      userName: 'Coach Fakka',
+                    ),
+                  ],
+                ),
+                decoration: BoxDecoration(
+                  color: mainColor,
+                ),
+              ),
+              ListTile(
+                title: Text(
+                  'Add Trainee',
+                  style: TextStyle(color: mainColor, fontFamily: 'Coiny'),
+                ),
+                onTap: () {
+                  _showFeatureLater.value = !_showFeatureLater.value;
+                },
+              ),
+              ListTile(
+                title: Text(
+                  'Add Exercise',
+                  style: TextStyle(color: mainColor, fontFamily: 'Coiny'),
+                ),
+                onTap: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return AddExercies();
+                  }));
+                },
+              ),
+              ListTile(
+                title: Text(
+                  'Profile',
+                  style: TextStyle(color: mainColor, fontFamily: 'Coiny'),
+                ),
+                onTap: () {
+                  _showFeatureLater.value = !_showFeatureLater.value;
+                },
+              ),
+              ListTile(
+                title: Text(
+                  'Logout',
+                  style: TextStyle(color: mainColor, fontFamily: 'Coiny'),
+                ),
+                onTap: () {
+                  _showFeatureLater.value = !_showFeatureLater.value;
+                },
+              ),
+            ],
+          ),
+          ValueListenableBuilder<bool>(
+            valueListenable: _showFeatureLater,
+            builder: (context, show, child) {
+              return Visibility(
+                visible: show,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Card(
+                      color: mainColor,
+                      child: Padding(
+                        padding: const EdgeInsets.all(40.0),
+                        child: Text(
+                          'This feature will be available later.',
+                          style: mainTextStyle,
+                        ),
+                      ),
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        _showFeatureLater.value = !_showFeatureLater.value;
+                      },
+                      child: Text('Close'),
+                    ),
+                  ],
+                ),
+              );
+            },
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+// ignore: must_be_immutabl
 class SearchBarWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -216,17 +246,3 @@ class SearchBarWidget extends StatelessWidget {
     );
   }
 }
-
-class Trainee {
-  final String name;
-  final String imagePath;
-
-  Trainee({required this.name, required this.imagePath});
-}
-
-// Example data (replace with your actual data)
-final List<Trainee> traineeList = [
-  Trainee(name: 'Trainee 1', imagePath: dummyImagePath),
-  Trainee(name: 'Trainee 2', imagePath: dummyImagePath),
-  // Add more trainees here
-];

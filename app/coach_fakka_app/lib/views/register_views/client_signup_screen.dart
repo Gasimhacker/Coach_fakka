@@ -1,10 +1,9 @@
-import 'package:coach_fakka_app/controllers/auth_controllers/client_auth_handler.dart';
+import 'package:coach_fakka_app/controllers/controllers.dart';
 import 'package:coach_fakka_app/models/client_model.dart';
 import 'package:coach_fakka_app/utils/show_snackBar.dart';
 import 'package:coach_fakka_app/utils/utils.dart';
 import 'package:coach_fakka_app/views/client_views/main_client_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class ClientSignup extends StatefulWidget {
   @override
@@ -14,37 +13,33 @@ class ClientSignup extends StatefulWidget {
 class _ClientSignupState extends State<ClientSignup> {
   final ClientAuthHandler _authHandler = ClientAuthHandler();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-
   late ClientModel newClient = ClientModel();
   late String password;
 
   _signUpClient() async {
-    print('Ax0');
     if (_formKey.currentState!.validate()) {
-      await _authHandler.signUpClient(newClient, password).whenComplete(() {
-        //Check the return status
-        print('Ax1');
-        setState(() {
-          print('Cx0');
-          _formKey.currentState!.reset();
-          print('Cx1');
-          showSnack(context, 'Congratulations, Account Created Successfully');
-        });
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) {
-              return ClientMainScreen(
-                clientId: 'Obada',
-              );
-            },
-          ),
-        );
+      String newId = await _authHandler.signUpClient(newClient, password);
+      if (newId == 'Something went wrong' ||
+          newId == 'null' ||
+          newId.length < 36) {
+        showSnack(context, 'Something went wrong');
+        return;
+      }
+      setState(() {
+        _formKey.currentState!.reset();
       });
-      print('Cx2');
       showSnack(context, 'Congratulations, Account Created Successfully');
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) {
+            return ClientMainScreen(
+              clientId: newId,
+            );
+          },
+        ),
+      );
     } else {
-      print('Ax2');
       showSnack(context, 'Please fill all fields');
     }
   }
