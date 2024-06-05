@@ -1,4 +1,4 @@
-import 'package:coach_fakka_app/controllers/controllers.dart';
+import 'package:coach_fakka_app/controllers/auth_controllers/coach_auth_handler.dart';
 import 'package:coach_fakka_app/models/models.dart';
 import 'package:coach_fakka_app/utils/utils.dart';
 import 'package:coach_fakka_app/views/coach_views/main_coach_screen.dart';

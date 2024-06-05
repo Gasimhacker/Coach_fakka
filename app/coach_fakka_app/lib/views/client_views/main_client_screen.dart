@@ -1,4 +1,4 @@
-import 'package:coach_fakka_app/controllers/controllers.dart';
+import 'package:coach_fakka_app/controllers/network_controllers/client_api_handler.dart';
 import 'package:coach_fakka_app/models/client_model.dart';
 import 'package:flutter/material.dart';
 

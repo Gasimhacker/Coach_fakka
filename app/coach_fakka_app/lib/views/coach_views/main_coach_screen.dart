@@ -1,5 +1,7 @@
 import 'package:coach_fakka_app/controllers/network_controllers/coach_api_handler.dart';
-import 'package:coach_fakka_app/models/models.dart';
+import 'package:coach_fakka_app/models/client_model.dart';
+import 'package:coach_fakka_app/models/coach_model.dart';
+
 import 'package:coach_fakka_app/utils/utils.dart';
 import 'package:coach_fakka_app/views/coach_views/individual_client_screen.dart';
 import 'package:coach_fakka_app/views/coach_views/widgets.dart';

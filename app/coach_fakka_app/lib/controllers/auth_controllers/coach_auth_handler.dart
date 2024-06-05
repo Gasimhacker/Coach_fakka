@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:coach_fakka_app/controllers/network_controllers/coach_api_handler.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:coach_fakka_app/controllers/controllers.dart';
 import 'package:coach_fakka_app/models/models.dart';
 
 class CoachAuthHandler {
