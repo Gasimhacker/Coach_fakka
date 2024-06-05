@@ -35,13 +35,8 @@ class _AddExerciesState extends State<AddExercies> {
       ),
     );
   }
-}
 
-class CustomFormFiled extends StatelessWidget {
-  final String hintText;
-  CustomFormFiled(this.hintText);
-  @override
-  Widget build(BuildContext context) {
+  Widget CustomFormFiled(String hintText) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10.0),
       child: Container(
@@ -53,6 +48,27 @@ class CustomFormFiled extends StatelessWidget {
             hintText: hintText,
             hintStyle: TextStyle(color: Colors.grey),
           ),
+        ),
+      ),
+    );
+  }
+
+  SubmitExerciseButton() {
+    return Container(
+      margin: EdgeInsets.symmetric(horizontal: 80.0, vertical: 40.0),
+      width: MediaQuery.of(context).size.width - 160.0,
+      height: 50.0,
+      decoration: BoxDecoration(
+        color: secondaryColor,
+        borderRadius: BorderRadius.circular(10.0),
+      ),
+      child: TextButton(
+        onPressed: () {
+          // POST EXERCISE API /api/v1/<coach_id>/exercises WITH body {name, description, link}
+        },
+        child: Text(
+          'Submit',
+          style: secondryTextStyle,
         ),
       ),
     );
@@ -77,30 +93,6 @@ class FormTextTitle extends StatelessWidget {
           bottomRight: Radius.circular(30),
         ),
         color: mainColor,
-      ),
-    );
-  }
-}
-
-class SubmitExerciseButton extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.symmetric(horizontal: 80.0, vertical: 40.0),
-      width: MediaQuery.of(context).size.width - 160.0,
-      height: 50.0,
-      decoration: BoxDecoration(
-        color: secondaryColor,
-        borderRadius: BorderRadius.circular(10.0),
-      ),
-      child: TextButton(
-        onPressed: () {
-          // POST EXERCISE API /api/v1/<coach_id>/exercises WITH body {name, description, link}
-        },
-        child: Text(
-          'Submit',
-          style: secondryTextStyle,
-        ),
       ),
     );
   }

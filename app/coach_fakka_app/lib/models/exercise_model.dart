@@ -2,13 +2,13 @@ class ExerciseModel {
   String id;
   String name;
   String description;
-  String video;
+  String link;
 
   ExerciseModel(
     this.id, {
     required this.name,
     required this.description,
-    required this.video,
+    required this.link,
   });
 
   factory ExerciseModel.fromJson(Map<String, dynamic> json) {
@@ -16,7 +16,7 @@ class ExerciseModel {
       json['id'],
       name: json['name'],
       description: json['description'],
-      video: json['video'],
+      link: json['link '],
     );
   }
 
@@ -25,7 +25,7 @@ class ExerciseModel {
       'name': name,
       'description': description,
       'id': id,
-      'video': video,
+      'link ': link,
     };
   }
 }

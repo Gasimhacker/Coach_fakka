@@ -16,4 +16,11 @@ class WorkoutAPIHandler {
     String response = await NetworkHandler.postData(endPoint, newWorkout);
     return WorkoutModel.fromJson(json.decode(response));
   }
+
+  static Future<WorkoutModel> updateWorkout(
+      String clientId, WorkoutModel updatedWorkout) async {
+    String endPoint = '${clientId}/workouts/${updatedWorkout.id}';
+    String response = await NetworkHandler.updateData(endPoint, updatedWorkout);
+    return WorkoutModel.fromJson(json.decode(response));
+  }
 }
