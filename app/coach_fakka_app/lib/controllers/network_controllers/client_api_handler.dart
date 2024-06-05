@@ -1,6 +1,6 @@
 import 'dart:convert';
-import 'package:coach_fakka_app/models/models.dart';
 import 'package:coach_fakka_app/controllers/network_controllers/network_handler.dart';
+import 'package:coach_fakka_app/models/client_model.dart';
 
 class ClientApiHandler {
   static Future<ClientModel> createNewClient(ClientModel newClient) async {

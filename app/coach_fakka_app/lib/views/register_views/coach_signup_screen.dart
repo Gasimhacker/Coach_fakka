@@ -1,5 +1,5 @@
 import 'package:coach_fakka_app/controllers/auth_controllers/coach_auth_handler.dart';
-import 'package:coach_fakka_app/models/models.dart';
+import 'package:coach_fakka_app/models/coach_model.dart';
 import 'package:coach_fakka_app/utils/utils.dart';
 import 'package:coach_fakka_app/views/coach_views/main_coach_screen.dart';
 import 'package:flutter/material.dart';

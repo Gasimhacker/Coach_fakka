@@ -1,6 +1,11 @@
+import 'package:coach_fakka_app/controllers/network_controllers/client_api_handler.dart';
+import 'package:coach_fakka_app/controllers/network_controllers/workout_api_handler.dart';
+import 'package:coach_fakka_app/models/client_model.dart';
+import 'package:coach_fakka_app/models/workout_model.dart';
 import 'package:coach_fakka_app/views/coach_views/widgets.dart';
 import 'package:coach_fakka_app/views/workout_view/add_workout_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import '../../utils/utils.dart';
 
@@ -14,9 +19,17 @@ class IndividualClientView extends StatefulWidget {
 }
 
 class _IndividualClientViewState extends State<IndividualClientView> {
+  late ClientModel currentClient = ClientModel(name: ' ', email: ' ', id: ' ');
+  late List<WorkoutModel> workouts = [];
+  _initCalls() async {
+    currentClient = await ClientApiHandler.getClient(widget.clientID!);
+    workouts = await WorkoutAPIHandler.getMyWorkouts(widget.clientID!);
+    setState(() {});
+  }
+
   @override
   void initState() {
-    // TODO: GET REQUEST FROM API TO GET CLIENT DATA /api/v1/<client_id>/workouts/
+    _initCalls();
     super.initState();
   }
 
@@ -45,7 +58,7 @@ class _IndividualClientViewState extends State<IndividualClientView> {
                 ),
                 SizedBox(height: 10),
                 UserNameWidget(
-                  userName: 'Client Name',
+                  userName: currentClient.name!,
                 ),
                 SizedBox(height: 10),
               ],
@@ -53,7 +66,7 @@ class _IndividualClientViewState extends State<IndividualClientView> {
           ),
           Expanded(
             child: ListView.builder(
-              itemCount: taskList.length, // Replace with your data
+              itemCount: workouts.length, // Replace with your data
               itemBuilder: (context, index) {
                 return TaskListTile(
                   index: index,
@@ -112,6 +125,12 @@ class _IndividualClientViewState extends State<IndividualClientView> {
     );
   }
 
+  _formatDate(String date) {
+    final parsedDateTime = DateTime.parse(date);
+    final formattedDate = DateFormat('MMM d').format(parsedDateTime);
+    return formattedDate;
+  }
+
   TaskListTile({required int index}) {
     int index = 0;
     return Container(
@@ -123,16 +142,16 @@ class _IndividualClientViewState extends State<IndividualClientView> {
       child: ListTile(
         contentPadding: EdgeInsets.fromLTRB(30, 0, 10, 0),
 
-        leading: Text(taskList[index].name, style: mainTextStyle),
+        leading: Text(workouts[index].name!, style: mainTextStyle),
         title: Center(
-          child:
-              Text('Date: ${taskList[index].createdAt}', style: mainTextStyle),
+          child: Text('Date: ${_formatDate(workouts[index].created_at!)}',
+              style: mainTextStyle),
         ), // Replace with trainee names
         trailing: TextButton(
           onPressed: () {
             // Implement edit functionality
           },
-          child: taskList[index].isCompleted
+          child: workouts[index].done!
               ? Text('Completed', style: mainTextStyle)
               : Text('Not Completed', style: mainTextStyle),
         ),
@@ -141,20 +160,7 @@ class _IndividualClientViewState extends State<IndividualClientView> {
   }
 }
 
-class Task {
-  final String name;
-  final String createdAt;
-  final bool isCompleted;
 
-  Task({required this.name, required this.createdAt, this.isCompleted = false});
-}
-
-// Example data (replace with your actual data)
-final List<Task> taskList = [
-  Task(name: 'Upper 1', createdAt: '2024-05-29', isCompleted: true),
-  Task(name: 'Lower 1', createdAt: '2024-05-29', isCompleted: false),
-  // Add more trainees here
-];
 
 // ignore: must_be_immutable
 

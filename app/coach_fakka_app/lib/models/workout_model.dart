@@ -2,7 +2,7 @@ class WorkoutModel {
   String? id;
   String? name;
   String? note;
-  String? creatd_at;
+  String? created_at;
   String? updated_at;
   String? client_id;
   bool? done = false;
@@ -12,7 +12,7 @@ class WorkoutModel {
       {this.id,
       this.name,
       this.note,
-      this.creatd_at,
+      this.created_at,
       this.client_id,
       this.done,
       this.number_exercises,
@@ -23,7 +23,7 @@ class WorkoutModel {
       id: json['id'],
       name: json['name'],
       note: json['note'],
-      creatd_at: json['creatdAt'],
+      created_at: json['created_at'],
       client_id: json['client_id'],
       done: json['done'],
       number_exercises: json['number_exercises'],
@@ -36,7 +36,7 @@ class WorkoutModel {
         'name': name,
         'client_id': client_id,
         'note': note,
-        'creatdAt': creatd_at,
+        'created_at': created_at,
         'done': done,
         'number_exercises': number_exercises,
         'updated_at': updated_at,
