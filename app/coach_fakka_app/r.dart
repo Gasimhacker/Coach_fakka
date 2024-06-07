@@ -25,13 +25,14 @@ void main() async {
 
   ClientModel c1 = await ClientApiHandler.getClient(AhmdId);
   print(' Client 1: ${c1.toJson()}');
+
   // ClientModel c2 = await ClientApiHandler.getClient(OmerId);
   // print(' Client 2: ${c2.toJson()}');
-  // print('My Workouts');
-  // List<WorkoutModel> cw = await WorkoutAPIHandler.getMyWorkouts(AhmdId);
-  // cw.forEach((workout) {
-  //   print(workout.toJson());
-  // });
+  print('My Workouts');
+  List<WorkoutModel> cw = await WorkoutAPIHandler.getMyWorkouts(AhmdId);
+  cw.forEach((workout) {
+    print(workout.toJson());
+  });
 
   // cw[0].done = true;
   // WorkoutModel mw = WorkoutModel.fromJson(cw[0].toJson());

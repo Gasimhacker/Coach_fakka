@@ -49,7 +49,8 @@ class ClientButton extends StatelessWidget {
       ),
       child: TextButton(
         onPressed: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context) {
+          Navigator.pushReplacement(context,
+              MaterialPageRoute(builder: (context) {
             return ClientLogin();
           }));
         },
@@ -74,7 +75,8 @@ class CoachButton extends StatelessWidget {
       ),
       child: TextButton(
         onPressed: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context) {
+          Navigator.pushReplacement(context,
+              MaterialPageRoute(builder: (context) {
             return CoachLogin();
           }));
         },

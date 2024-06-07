@@ -170,7 +170,6 @@ class _IndividualClientViewState extends State<IndividualClientView> {
   }
 
   TaskListTile({required int index}) {
-    int index = 0;
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       decoration: BoxDecoration(
