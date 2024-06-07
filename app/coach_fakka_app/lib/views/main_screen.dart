@@ -1,5 +1,6 @@
 import 'package:coach_fakka_app/utils/utils.dart';
-import 'package:coach_fakka_app/views/register_views/register_screens.dart';
+import 'package:coach_fakka_app/views/register_views/client_login_screen.dart';
+import 'package:coach_fakka_app/views/register_views/coach_login_screen.dart';
 import 'package:flutter/material.dart';
 
 class MainRegister extends StatefulWidget {

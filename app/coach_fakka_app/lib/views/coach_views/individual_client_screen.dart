@@ -81,43 +81,81 @@ class _IndividualClientViewState extends State<IndividualClientView> {
   }
 
   ClientCoachDrawer() {
+    final ValueNotifier<bool> _showFeatureLater = ValueNotifier(false);
     return Drawer(
       backgroundColor: thirdColor,
-      child: ListView(
+      child: Stack(
+        alignment: Alignment.center,
         children: [
-          DrawerHeader(
-            child: Column(
-              children: [
-                UserProfilePic(
-                  imagePath: dummyImagePath,
+          ListView(
+            children: [
+              DrawerHeader(
+                child: Column(
+                  children: [
+                    UserProfilePic(
+                      imagePath: dummyImagePath,
+                    ),
+                    UserNameWidget(
+                      userName: currentClient.name!,
+                    ),
+                  ],
                 ),
-                UserNameWidget(
-                  userName: 'Client Name',
+                decoration: BoxDecoration(
+                  color: mainColor,
                 ),
-              ],
-            ),
-            decoration: BoxDecoration(
-              color: mainColor,
-            ),
+              ),
+              ListTile(
+                title: Text(
+                  'Add Workout',
+                  style: TextStyle(color: mainColor, fontFamily: 'Coiny'),
+                ),
+                onTap: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return AddWorkout(
+                      clientId: widget.clientID!,
+                      coachId: widget.coachID!,
+                    );
+                  }));
+                },
+              ),
+              ListTile(
+                title: Text(
+                  'Profile',
+                  style: TextStyle(color: mainColor, fontFamily: 'Coiny'),
+                ),
+                onTap: () {
+                  _showFeatureLater.value = !_showFeatureLater.value;
+                },
+              ),
+            ],
           ),
-          ListTile(
-            title: Text(
-              'Add Workout',
-              style: TextStyle(color: mainColor, fontFamily: 'Coiny'),
-            ),
-            onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return AddWorkout();
-              }));
-            },
-          ),
-          ListTile(
-            title: Text(
-              'Profile',
-              style: TextStyle(color: mainColor, fontFamily: 'Coiny'),
-            ),
-            onTap: () {
-              // Implement profile functionality
+          ValueListenableBuilder<bool>(
+            valueListenable: _showFeatureLater,
+            builder: (context, show, child) {
+              return Visibility(
+                visible: show,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Card(
+                      color: mainColor,
+                      child: Padding(
+                        padding: const EdgeInsets.all(40.0),
+                        child: Text(
+                          'This feature will be available later.',
+                          style: mainTextStyle,
+                        ),
+                      ),
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        _showFeatureLater.value = !_showFeatureLater.value;
+                      },
+                      child: Text('Close'),
+                    ),
+                  ],
+                ),
+              );
             },
           ),
         ],
@@ -143,10 +181,10 @@ class _IndividualClientViewState extends State<IndividualClientView> {
         contentPadding: EdgeInsets.fromLTRB(30, 0, 10, 0),
 
         leading: Text(workouts[index].name!, style: mainTextStyle),
-        title: Center(
-          child: Text('Date: ${_formatDate(workouts[index].created_at!)}',
-              style: mainTextStyle),
-        ), // Replace with trainee names
+        // title: Center(
+        //   child: Text('Date: ${_formatDate(workouts[index].created_at!)}',
+        //       style: mainTextStyle),
+        // ), // Replace with trainee names
         trailing: TextButton(
           onPressed: () {
             // Implement edit functionality

@@ -10,13 +10,13 @@ class ClientApiHandler {
   }
 
   static Future<ClientModel> getClient(String clientId) async {
-    String endPoint = 'coaches/${clientId}';
+    String endPoint = 'clients/${clientId}';
     String response = await NetworkHandler.fetchData(endPoint);
     return ClientModel.fromJson(json.decode(response));
   }
 
   static Future<bool> isClient(String clientId) async {
-    String endPoint = 'coaches/${clientId}';
+    String endPoint = 'clients/${clientId}';
     String response = await NetworkHandler.fetchData(endPoint);
     if (response == '404') {
       return false;

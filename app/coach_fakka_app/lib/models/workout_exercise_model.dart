@@ -2,13 +2,13 @@ class WorkoutExerciseModel {
   String? id;
   String? workout_id;
   String? exercise_id;
-  int? sets;
-  int? restTime;
-  int? reps;
-  int? rpe;
-  int? weight;
-  bool? done;
-  bool? warm_up;
+  int? sets = 0;
+  int? restTime = 0;
+  int? reps = 0;
+  int? rpe = 0;
+  int? weight = 0;
+  bool? done = false;
+  bool? warm_up = false;
 
   WorkoutExerciseModel({
     this.id,
