@@ -2,6 +2,7 @@ import 'package:coach_fakka_app/controllers/auth_controllers/client_auth_handler
 import 'package:coach_fakka_app/utils/show_snackBar.dart';
 import 'package:coach_fakka_app/utils/utils.dart';
 import 'package:coach_fakka_app/views/client_views/main_client_screen.dart';
+import 'package:coach_fakka_app/views/register_views/client_signup_screen.dart';
 import 'package:flutter/material.dart';
 
 class ClientLogin extends StatefulWidget {
@@ -91,7 +92,9 @@ class _ClientLoginState extends State<ClientLogin> {
         ),
         TextButton(
           onPressed: () {
-            null;
+            Navigator.push(context, MaterialPageRoute(builder: (context) {
+              return ClientSignup();
+            }));
           },
           child: Text(
             'Sign Up',
@@ -108,7 +111,7 @@ class _ClientLoginState extends State<ClientLogin> {
   TraineeLoginButton() {
     return Container(
       width: MediaQuery.of(context).size.width - 80.0,
-      height: 50.0,
+      height: 70.0,
       decoration: BoxDecoration(
         color: secondaryColor,
         borderRadius: BorderRadius.circular(10.0),
@@ -128,7 +131,7 @@ class _ClientLoginState extends State<ClientLogin> {
   TraineePasswordField() {
     return Container(
       width: MediaQuery.of(context).size.width - 80.0,
-      height: 50.0,
+      height: 70.0,
       child: TextFormField(
         obscureText: true,
         onChanged: (value) {
