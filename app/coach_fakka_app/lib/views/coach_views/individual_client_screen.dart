@@ -1,20 +1,35 @@
+import 'package:coach_fakka_app/controllers/network_controllers/client_api_handler.dart';
+import 'package:coach_fakka_app/controllers/network_controllers/workout_api_handler.dart';
+import 'package:coach_fakka_app/models/client_model.dart';
+import 'package:coach_fakka_app/models/workout_model.dart';
 import 'package:coach_fakka_app/views/coach_views/widgets.dart';
 import 'package:coach_fakka_app/views/workout_view/add_workout_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import '../../utils/utils.dart';
 
 class IndividualClientView extends StatefulWidget {
-  const IndividualClientView({super.key});
+  final String? clientID;
+  final String? coachID;
+  IndividualClientView({required this.clientID, required this.coachID});
 
   @override
   State<IndividualClientView> createState() => _IndividualClientViewState();
 }
 
 class _IndividualClientViewState extends State<IndividualClientView> {
+  late ClientModel currentClient = ClientModel(name: ' ', email: ' ', id: ' ');
+  late List<WorkoutModel> workouts = [];
+  _initCalls() async {
+    currentClient = await ClientApiHandler.getClient(widget.clientID!);
+    workouts = await WorkoutAPIHandler.getMyWorkouts(widget.clientID!);
+    setState(() {});
+  }
+
   @override
   void initState() {
-    // TODO: GET REQUEST FROM API TO GET CLIENT DATA /api/v1/<client_id>/workouts/
+    _initCalls();
     super.initState();
   }
 
@@ -43,7 +58,7 @@ class _IndividualClientViewState extends State<IndividualClientView> {
                 ),
                 SizedBox(height: 10),
                 UserNameWidget(
-                  userName: 'Client Name',
+                  userName: currentClient.name!,
                 ),
                 SizedBox(height: 10),
               ],
@@ -51,7 +66,7 @@ class _IndividualClientViewState extends State<IndividualClientView> {
           ),
           Expanded(
             child: ListView.builder(
-              itemCount: taskList.length, // Replace with your data
+              itemCount: workouts.length, // Replace with your data
               itemBuilder: (context, index) {
                 return TaskListTile(
                   index: index,
@@ -64,78 +79,97 @@ class _IndividualClientViewState extends State<IndividualClientView> {
       drawer: ClientCoachDrawer(),
     );
   }
-}
 
-class ClientCoachDrawer extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
+  ClientCoachDrawer() {
+    final ValueNotifier<bool> _showFeatureLater = ValueNotifier(false);
     return Drawer(
       backgroundColor: thirdColor,
-      child: ListView(
+      child: Stack(
+        alignment: Alignment.center,
         children: [
-          DrawerHeader(
-            child: Column(
-              children: [
-                UserProfilePic(
-                  imagePath: dummyImagePath,
+          ListView(
+            children: [
+              DrawerHeader(
+                child: Column(
+                  children: [
+                    UserProfilePic(
+                      imagePath: dummyImagePath,
+                    ),
+                    UserNameWidget(
+                      userName: currentClient.name!,
+                    ),
+                  ],
                 ),
-                UserNameWidget(
-                  userName: 'Client Name',
+                decoration: BoxDecoration(
+                  color: mainColor,
                 ),
-              ],
-            ),
-            decoration: BoxDecoration(
-              color: mainColor,
-            ),
+              ),
+              ListTile(
+                title: Text(
+                  'Add Workout',
+                  style: TextStyle(color: mainColor, fontFamily: 'Coiny'),
+                ),
+                onTap: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return AddWorkout(
+                      clientId: widget.clientID!,
+                      coachId: widget.coachID!,
+                    );
+                  }));
+                },
+              ),
+              ListTile(
+                title: Text(
+                  'Profile',
+                  style: TextStyle(color: mainColor, fontFamily: 'Coiny'),
+                ),
+                onTap: () {
+                  _showFeatureLater.value = !_showFeatureLater.value;
+                },
+              ),
+            ],
           ),
-          ListTile(
-            title: Text(
-              'Add Workout',
-              style: TextStyle(color: mainColor, fontFamily: 'Coiny'),
-            ),
-            onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return AddWorkout();
-              }));
-            },
-          ),
-          ListTile(
-            title: Text(
-              'Profile',
-              style: TextStyle(color: mainColor, fontFamily: 'Coiny'),
-            ),
-            onTap: () {
-              // Implement profile functionality
+          ValueListenableBuilder<bool>(
+            valueListenable: _showFeatureLater,
+            builder: (context, show, child) {
+              return Visibility(
+                visible: show,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Card(
+                      color: mainColor,
+                      child: Padding(
+                        padding: const EdgeInsets.all(40.0),
+                        child: Text(
+                          'This feature will be available later.',
+                          style: mainTextStyle,
+                        ),
+                      ),
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        _showFeatureLater.value = !_showFeatureLater.value;
+                      },
+                      child: Text('Close'),
+                    ),
+                  ],
+                ),
+              );
             },
           ),
         ],
       ),
     );
   }
-}
 
-class Task {
-  final String name;
-  final String imagePath;
-  final String createdAt;
+  _formatDate(String date) {
+    final parsedDateTime = DateTime.parse(date);
+    final formattedDate = DateFormat('MMM d').format(parsedDateTime);
+    return formattedDate;
+  }
 
-  Task({required this.name, required this.imagePath, required this.createdAt});
-}
-
-// Example data (replace with your actual data)
-final List<Task> taskList = [
-  Task(name: 'Upper 1', imagePath: dummyImagePath, createdAt: '2024-05-29'),
-  Task(name: 'Lower 1', imagePath: dummyImagePath, createdAt: '2024-05-29'),
-  // Add more trainees here
-];
-
-// ignore: must_be_immutable
-class TaskListTile extends StatelessWidget {
-  int index;
-  TaskListTile({required this.index});
-
-  @override
-  Widget build(BuildContext context) {
+  TaskListTile({required int index}) {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       decoration: BoxDecoration(
@@ -145,18 +179,25 @@ class TaskListTile extends StatelessWidget {
       child: ListTile(
         contentPadding: EdgeInsets.fromLTRB(30, 0, 10, 0),
 
-        leading: Text(taskList[index].name, style: mainTextStyle),
-        title: Center(
-          child:
-              Text('Date: ${taskList[index].createdAt}', style: mainTextStyle),
-        ), // Replace with trainee names
+        leading: Text(workouts[index].name!, style: mainTextStyle),
+        // title: Center(
+        //   child: Text('Date: ${_formatDate(workouts[index].created_at!)}',
+        //       style: mainTextStyle),
+        // ), // Replace with trainee names
         trailing: TextButton(
           onPressed: () {
             // Implement edit functionality
           },
-          child: Text('Edit', style: mainTextStyle),
+          child: workouts[index].done!
+              ? Text('Completed', style: mainTextStyle)
+              : Text('Not Completed', style: mainTextStyle),
         ),
       ),
     );
   }
 }
+
+
+
+// ignore: must_be_immutable
+

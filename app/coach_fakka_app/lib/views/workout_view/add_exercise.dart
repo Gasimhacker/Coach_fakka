@@ -35,13 +35,8 @@ class _AddExerciesState extends State<AddExercies> {
       ),
     );
   }
-}
 
-class CustomFormFiled extends StatelessWidget {
-  String hintText;
-  CustomFormFiled(this.hintText);
-  @override
-  Widget build(BuildContext context) {
+  Widget CustomFormFiled(String hintText) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10.0),
       child: Container(
@@ -57,34 +52,8 @@ class CustomFormFiled extends StatelessWidget {
       ),
     );
   }
-}
 
-class FormTextTitle extends StatelessWidget {
-  String title;
-  FormTextTitle(this.title);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: Text(
-        title,
-        style: mainTextStyle,
-      ),
-      padding: EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.only(
-          topRight: Radius.circular(30),
-          bottomRight: Radius.circular(30),
-        ),
-        color: mainColor,
-      ),
-    );
-  }
-}
-
-class SubmitExerciseButton extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
+  SubmitExerciseButton() {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 80.0, vertical: 40.0),
       width: MediaQuery.of(context).size.width - 160.0,
@@ -101,6 +70,29 @@ class SubmitExerciseButton extends StatelessWidget {
           'Submit',
           style: secondryTextStyle,
         ),
+      ),
+    );
+  }
+}
+
+class FormTextTitle extends StatelessWidget {
+  final String title;
+  FormTextTitle(this.title);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Text(
+        title,
+        style: mainTextStyle,
+      ),
+      padding: EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.only(
+          topRight: Radius.circular(30),
+          bottomRight: Radius.circular(30),
+        ),
+        color: mainColor,
       ),
     );
   }

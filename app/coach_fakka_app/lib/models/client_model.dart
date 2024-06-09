@@ -1,98 +1,71 @@
-import 'dart:convert';
-import 'dart:ffi';
-import 'package:http/http.dart' as http;
-
 class ClientModel {
   String? name;
   String? id;
-  String? coachId;
+  String? coach_id;
   String? email;
-  String? age;
-  String? Gender;
-  Double? weight;
-  int? height;
-  double? goalWeight;
-  String? traiiingPlace;
-  int? traiangDays;
-  double? traiangHours;
-  int? activityLevel;
-  bool? needSupplement;
-  String? injuryHistory;
+  String? gender = 'MALE';
+  String? training_place;
+  String? injury_history = 'None';
+  int? training_days = 0;
+  int? activity_level = 1;
+  int? age = 1;
+  int? training_hours;
+  double? height = 0;
+  double? weight;
+  double? goal_weight;
+  bool? need_supplements = false;
 
   ClientModel({
     this.name,
-    this.email,
-    this.Gender,
-    this.age,
-    this.weight,
-    this.height,
-    this.goalWeight,
-    this.traiiingPlace,
-    this.traiangDays,
-    this.traiangHours,
-    this.activityLevel,
-    this.needSupplement,
-    this.injuryHistory,
-    this.coachId,
     this.id,
+    this.coach_id,
+    this.email,
+    this.gender,
+    this.training_place,
+    this.injury_history,
+    this.training_days,
+    this.activity_level,
+    this.age,
+    this.height,
+    this.weight,
+    this.goal_weight,
+    this.training_hours,
+    this.need_supplements,
   });
 
   factory ClientModel.fromJson(Map<String, dynamic> json) => ClientModel(
         name: json["name"],
-        email: json["email"],
         id: json["id"],
-        coachId: json["coachId"],
+        coach_id: json["coach_id"],
+        email: json["email"],
+        gender: json["gender"],
+        training_place: json["training_place"],
+        injury_history: json["injury_history"],
+        training_days: json["training_days"],
+        activity_level: json["activity_level"],
         age: json["age"],
-        weight: json["weight"],
         height: json["height"],
-        goalWeight: json["goalWeight"],
-        traiiingPlace: json["traiiingPlace"],
-        traiangDays: json["traiangDays"],
-        traiangHours: json["traiangHours"],
-        activityLevel: json["activityLevel"],
-        needSupplement: json["needSupplement"],
-        injuryHistory: json["injuryHistory"],
+        weight: json["weight"],
+        goal_weight: json["goal_weight"],
+        training_hours: json["training_hours"],
+        need_supplements: json["need_supplements"],
       );
 
   Map<String, dynamic> toJson() => {
         "name": name,
-        "email": email,
         "id": id,
-        "coachId": coachId,
+        "coach_id": coach_id,
+        "email": email,
+        "gender": gender,
+        "training_place": training_place,
+        "injury_history": injury_history,
+        "training_days": training_days,
+        "activity_level": activity_level,
         "age": age,
-        "weight": weight,
         "height": height,
-        "goalWeight": goalWeight,
-        "traiiingPlace": traiiingPlace,
-        "traiangDays": traiangDays,
-        "traiangHours": traiangHours,
-        "activityLevel": activityLevel,
-        "needSupplement": needSupplement,
-        "injuryHistory": injuryHistory,
+        "weight": weight,
+        "goal_weight": goal_weight,
+        "training_hours": training_hours,
+        "need_supplements": need_supplements,
       };
-
-  static Future<List<ClientModel>> fetchAll() async {
-    final url = Uri.parse('http://localhost:3000/coaches');
-    final response = await http.get(url);
-    if (response.statusCode == 200) {
-      List jsonResponse = json.decode(response.body);
-      return jsonResponse.map((coach) => ClientModel.fromJson(coach)).toList();
-    } else {
-      throw Exception('Failed to load coaches');
-    }
-  }
-
-  Future<void> postData() async {
-    final url = Uri.parse('http://example.com/api/endpoint');
-    final headers = {'Content-Type': 'application/json'};
-    final body = jsonEncode({'name': 'John Doe', 'email': 'john@example.com'});
-
-    final response = await http.post(url, headers: headers, body: body);
-
-    if (response.statusCode == 200) {
-      print('Data Sending Success.');
-    } else {
-      print('Hata: ${response.statusCode}');
-    }
-  }
 }

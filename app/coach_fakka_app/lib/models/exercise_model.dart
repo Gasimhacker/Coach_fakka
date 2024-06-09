@@ -1,22 +1,22 @@
-class Exercise {
-  String id;
-  final String name;
-  final String description;
-  final String video;
+class ExerciseModel {
+  String? id;
+  String? name;
+  String? description;
+  String? link;
 
-  Exercise(
-    this.id, {
-    required this.name,
-    required this.description,
-    required this.video,
+  ExerciseModel({
+    this.id,
+    this.name,
+    this.description,
+    this.link,
   });
 
-  factory Exercise.fromJson(Map<String, dynamic> json) {
-    return Exercise(
-      json['id'],
+  factory ExerciseModel.fromJson(Map<String, dynamic> json) {
+    return ExerciseModel(
+      id: json['id'],
       name: json['name'],
       description: json['description'],
-      video: json['video'],
+      link: json['link'],
     );
   }
 
@@ -25,7 +25,7 @@ class Exercise {
       'name': name,
       'description': description,
       'id': id,
-      'video': video,
+      'link': link,
     };
   }
 }

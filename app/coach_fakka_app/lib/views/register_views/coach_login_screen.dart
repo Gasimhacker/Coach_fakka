@@ -1,4 +1,8 @@
+import 'package:coach_fakka_app/controllers/auth_controllers/coach_auth_handler.dart';
+import 'package:coach_fakka_app/utils/show_snackBar.dart';
 import 'package:coach_fakka_app/utils/utils.dart';
+import 'package:coach_fakka_app/views/coach_views/main_coach_screen.dart';
+import 'package:coach_fakka_app/views/register_views/coach_signup_screen.dart';
 import 'package:flutter/material.dart';
 
 class CoachLogin extends StatefulWidget {
@@ -7,66 +11,76 @@ class CoachLogin extends StatefulWidget {
 }
 
 class _CoachLoginState extends State<CoachLogin> {
+  GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  CoachAuthHandler _authController = CoachAuthHandler();
+  late String email;
+  late String password;
+
+  _LoginCoach() async {
+    if (_formKey.currentState!.validate()) {
+      String _response = await _authController.signInCoach(email, password);
+      print(_response);
+      if (_response != 'ERROR 1' &&
+          _response != 'ERROR 2' &&
+          _response != 'ERROR 3') {
+        Future.delayed(Duration(seconds: 2), () {
+          return Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) {
+                return CoachMainScreen(
+                  coachId: _response,
+                );
+              },
+            ),
+          );
+        });
+      }
+      if (_response == 'ERROR 1') {
+        showSnack(context, 'Please fill all fields');
+      } else if (_response == 'ERROR 2') {
+        showSnack(context, 'No such coach found');
+      } else if (_response == 'ERROR 3') {
+        showSnack(context, 'Password or email is incorrect');
+      }
+    } else {
+      showSnack(context, 'Please fill all fields');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
         child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              CoachLoginText(),
-              SizedBox(
-                height: 30.0,
-              ),
-              CoachEmailField(),
-              SizedBox(
-                height: 30.0,
-              ),
-              CoachPasswordField(),
-              SizedBox(
-                height: 30.0,
-              ),
-              CoachLoginButton(),
-              CoachToSignupButton(),
-            ],
+          child: Form(
+            key: _formKey,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                CoachLoginText(),
+                SizedBox(
+                  height: 30.0,
+                ),
+                CoachEmailField(context),
+                SizedBox(
+                  height: 30.0,
+                ),
+                CoachPasswordField(),
+                SizedBox(
+                  height: 30.0,
+                ),
+                CoachLoginButton(),
+                CoachToSignupButton(),
+              ],
+            ),
           ),
         ),
       ),
     );
   }
-}
 
-class CoachToSignupButton extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Text(
-          'You don\'t have an account?',
-          style: TextStyle(color: Colors.grey),
-        ),
-        TextButton(
-          onPressed: () {
-            null;
-          },
-          child: Text(
-            'Sign Up',
-            style: TextStyle(
-                color: mainColor,
-                fontWeight: FontWeight.bold,
-                fontFamily: 'Coiny'),
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class CoachLoginButton extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
+  Widget CoachLoginButton() {
     return Container(
       width: MediaQuery.of(context).size.width - 80.0,
       height: 50.0,
@@ -76,7 +90,7 @@ class CoachLoginButton extends StatelessWidget {
       ),
       child: TextButton(
         onPressed: () {
-          //Get CoachID from fireBase
+          _LoginCoach();
         },
         child: Text(
           'Login',
@@ -85,15 +99,18 @@ class CoachLoginButton extends StatelessWidget {
       ),
     );
   }
-}
 
-class CoachPasswordField extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
+  Widget CoachPasswordField() {
     return Container(
       width: MediaQuery.of(context).size.width - 80.0,
-      height: 50.0,
+      height: 70.0,
       child: TextFormField(
+        obscureText: true,
+        onChanged: (value) {
+          password = value;
+        },
+        validator: (value) =>
+            value!.isEmpty ? 'Please enter your password' : null,
         decoration: InputDecoration(
           labelStyle:
               TextStyle(color: Colors.white), // Customize label text color
@@ -112,15 +129,16 @@ class CoachPasswordField extends StatelessWidget {
       ),
     );
   }
-}
 
-class CoachEmailField extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
+  Widget CoachEmailField(BuildContext context) {
     return Container(
       width: MediaQuery.of(context).size.width - 80.0,
-      height: 50.0,
+      height: 70.0,
       child: TextFormField(
+        onChanged: (value) {
+          email = value;
+        },
+        validator: (value) => value!.isEmpty ? 'Please enter your email' : null,
         decoration: InputDecoration(
           labelStyle: TextStyle(color: Colors.grey),
           border: OutlineInputBorder(),
@@ -134,6 +152,35 @@ class CoachEmailField extends StatelessWidget {
           hintStyle: TextStyle(color: Colors.grey),
         ),
       ),
+    );
+  }
+}
+
+class CoachToSignupButton extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text(
+          'You don\'t have an account?',
+          style: TextStyle(color: Colors.grey),
+        ),
+        TextButton(
+          onPressed: () {
+            Navigator.push(context, MaterialPageRoute(builder: (context) {
+              return CoachSignup();
+            }));
+          },
+          child: Text(
+            'Sign Up',
+            style: TextStyle(
+                color: mainColor,
+                fontWeight: FontWeight.bold,
+                fontFamily: 'Coiny'),
+          ),
+        ),
+      ],
     );
   }
 }
