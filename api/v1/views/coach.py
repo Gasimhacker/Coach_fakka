@@ -9,13 +9,13 @@ from models.coach import Coach
 coach_attrs = ['name', 'email', 'password']
 
 @app_views.route('/coaches', methods=['POST'], strict_slashes=False)
-def get_coach():
+def post_coach():
     """add new coach"""
     if not request.json:
         abort(400, 'Not a JSON')
     for attr in coach_attrs:
         if attr not in request.json:
-            abort(400, f'Missing {attr} Attribute')
+            abort(400, f'Missing <{attr}> Attribute')
     coach = Coach(**request.json)
     coach.save()
     return jsonify(coach.to_dict()), 201
@@ -26,7 +26,7 @@ def coach_ctrl(coach_id):
     if request.method == 'GET':
         coach = storage.get(Coach, coach_id)
         if coach is None:
-            abort(404, "coach Not Found")
+            abort(404, "Coach Not Found")
         return jsonify(coach.to_dict())
 
     if request.method == 'PUT':
@@ -36,17 +36,17 @@ def coach_ctrl(coach_id):
         data = request.json
         coach = storage.get(Coach, coach_id)
         if not coach:
-            abort(404, "Coach Not found")
+            abort(404, "Coach Not Found")
         for k, v in data.items():
             if k not in ignore:
                 setattr(coach, k, v)
                 coach.save()
-        return jsonify(coach.to_dict()), 201
+        return jsonify(coach.to_dict()), 200
 
     if request.method == 'DELETE':
         coach = storage.get(Coach, coach_id)
         if coach is None:
-            abort(404)
+            abort(404, "Coach Not Found")
         storage.delete(coach)
         storage.save()
         return jsonify({}), 200
