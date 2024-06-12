@@ -2,8 +2,7 @@
 ## Introduction
 Coach_Fakkah is a comprehensive and user-friendly workout app designed for coaches to efficiently manage their clients and track their progress. Coaches can add clients, assign tasks, and monitor their development, while clients can update their tasks to show progress. The app aims to streamline the coaching process, making it easier for coaches to train their clients and for clients to stay on top of their fitness goals.
 
-### This project was inspired by one of our friends who wants to become a gym coach and needed an efficient way to communicate with and manage his clients.
-https://github.com/Gasimhacker/Coach_fakka/assets/102863215/a8b6a3f7-1bf6-4548-9bf2-79e1e839e2ee
+This project was inspired by one of our friends who wants to become a gym coach and needed an efficient way to communicate with and manage his clients.
 
 
 
